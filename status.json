@@ -1,26 +1,26 @@
 {
   "updated": "2026-10-23T12:24:27+00:00",
-  "current": 0,
+  "current": 1,
   "phases": [
     {
       "name": "Baseline",
-      "status": "active",
-      "progress": 0
+      "status": "done",
+      "progress": 100
     },
     {
       "name": "Ingestion",
-      "status": "pending",
-      "progress": 0
+      "status": "active",
+      "progress": 40
     },
     {
       "name": "Knowledge integration",
-      "status": "pending",
-      "progress": 0
+      "status": "active",
+      "progress": 20
     },
     {
       "name": "Storage-based weights",
-      "status": "pending",
-      "progress": 0
+      "status": "active",
+      "progress": 10
     },
     {
       "name": "Tools",
