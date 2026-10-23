@@ -93,6 +93,60 @@ h2 {
 }
 h2::before { content: "\25CF\2009\2014\2009"; color: var(--fg); letter-spacing: 0; }
 
+/* live phase tracker */
+.phases { max-width: 520px; margin: 64px auto 0; text-align: left; }
+.phases h2 { text-align: center; margin-bottom: 24px; }
+.phase-list { list-style: none; margin: 0; padding: 0; }
+.phase {
+  position: relative;
+  display: flex;
+  gap: 18px;
+  padding: 12px 0 12px 0;
+}
+.phase:not(:last-child)::after {
+  /* connector line between dots */
+  content: "";
+  position: absolute;
+  left: 6px;
+  top: 30px;
+  bottom: -6px;
+  width: 1px;
+  background: var(--line);
+}
+.phase-dot {
+  flex: none;
+  width: 13px;
+  height: 13px;
+  margin-top: 5px;
+  border: 1px solid var(--muted);
+  border-radius: 50%;
+  background: var(--bg);
+}
+.phase--passed .phase-dot { border-color: var(--fg); background: var(--muted); }
+.phase--current .phase-dot {
+  border-color: var(--fg);
+  background: var(--fg);
+  box-shadow: 0 0 14px var(--glow);
+  animation: dot-pulse 2.4s ease-in-out infinite;
+}
+.phase--stopped .phase-dot { border-color: var(--muted); background: transparent; box-shadow: none; animation: none; }
+@keyframes dot-pulse {
+  0%, 100% { box-shadow: 0 0 6px var(--glow); }
+  50% { box-shadow: 0 0 18px var(--glow); }
+}
+@media (prefers-reduced-motion: reduce) { .phase--current .phase-dot { animation: none; } }
+.phase-body { flex: 1; min-width: 0; }
+.phase-head { display: flex; align-items: baseline; gap: 14px; }
+.phase-tag { flex: none; width: 64px; font-size: 12px; letter-spacing: 0.18em; text-transform: uppercase; color: var(--muted); }
+.phase-name { flex: 1; color: var(--muted); }
+.phase-pct { font-variant-numeric: tabular-nums; font-size: 14px; color: var(--muted); }
+.phase--passed .phase-name, .phase--current .phase-name { color: var(--fg); }
+.phase--current .phase-tag, .phase--current .phase-pct { color: var(--fg); }
+.phase-bar { height: 3px; margin: 10px 0 6px 78px; background: var(--line); border-radius: 2px; overflow: hidden; }
+.phase-bar span { display: block; height: 100%; background: var(--fg); box-shadow: 0 0 8px var(--glow); transition: width 0.6s ease; }
+.phase-state { display: block; margin-left: 78px; font-size: 12px; letter-spacing: 0.16em; text-transform: uppercase; color: var(--muted); }
+.phase-updated { margin: 20px 0 0; text-align: center; font-size: 13px; color: var(--muted); }
+
 /* legal pages */
 .doc { max-width: 720px; padding: 72px 24px 96px; margin: 0 auto; }
 .doc h1 { font-size: 34px; letter-spacing: 0.08em; text-transform: uppercase; margin: 0 0 8px; }
@@ -112,4 +166,6 @@ h2::before { content: "\25CF\2009\2014\2009"; color: var(--fg); letter-spacing: 
   .site-nav a { font-size: 11px; letter-spacing: 0.12em; }
   .brand span { display: none; }
   .hero { padding-top: 56px; padding-bottom: 48px; }
+  .phase-tag { width: 56px; letter-spacing: 0.1em; }
+  .phase-bar, .phase-state { margin-left: 70px; }
 }
