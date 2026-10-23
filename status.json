@@ -1,0 +1,46 @@
+{
+  "updated": "2026-10-23T12:24:27+00:00",
+  "current": 0,
+  "phases": [
+    {
+      "name": "Baseline",
+      "status": "active",
+      "progress": 0
+    },
+    {
+      "name": "Ingestion",
+      "status": "pending",
+      "progress": 0
+    },
+    {
+      "name": "Knowledge integration",
+      "status": "pending",
+      "progress": 0
+    },
+    {
+      "name": "Storage-based weights",
+      "status": "pending",
+      "progress": 0
+    },
+    {
+      "name": "Tools",
+      "status": "pending",
+      "progress": 0
+    },
+    {
+      "name": "Audio",
+      "status": "pending",
+      "progress": 0
+    },
+    {
+      "name": "Vision",
+      "status": "pending",
+      "progress": 0
+    },
+    {
+      "name": "Learning loop",
+      "status": "pending",
+      "progress": 0
+    }
+  ]
+}
