@@ -1,46 +1,83 @@
 {
-  "updated": "2026-10-23T12:24:27+00:00",
-  "current": 1,
+  "project": "DiskNCM",
+  "updated": "2026-10-25T11:03:21+00:00",
+  "current": 0,
   "phases": [
     {
-      "name": "Baseline",
-      "status": "done",
-      "progress": 100
-    },
-    {
-      "name": "Ingestion",
+      "name": "Baseline (NCM + local core)",
       "status": "active",
-      "progress": 40
+      "progress": 0
     },
     {
-      "name": "Knowledge integration",
-      "status": "active",
-      "progress": 20
-    },
-    {
-      "name": "Storage-based weights",
-      "status": "active",
-      "progress": 10
-    },
-    {
-      "name": "Tools",
+      "name": "Brain v1 (books)",
       "status": "pending",
       "progress": 0
     },
     {
-      "name": "Audio",
+      "name": "Disk memory (zero-context knowledge)",
       "status": "pending",
       "progress": 0
     },
     {
-      "name": "Vision",
+      "name": "NCMFA core",
       "status": "pending",
       "progress": 0
     },
     {
-      "name": "Learning loop",
+      "name": "Tools, web search & MCP",
       "status": "pending",
       "progress": 0
+    },
+    {
+      "name": "Vision & live video",
+      "status": "pending",
+      "progress": 0
+    },
+    {
+      "name": "Computer use",
+      "status": "pending",
+      "progress": 0
+    },
+    {
+      "name": "Plugin for any agent",
+      "status": "pending",
+      "progress": 0
+    },
+    {
+      "name": "Learning loop & news",
+      "status": "pending",
+      "progress": 0
+    },
+    {
+      "name": "Evaluation (ARC-AGI live)",
+      "status": "pending",
+      "progress": 0
+    }
+  ],
+  "todos": [
+    {
+      "title": "Run NCM on the RTX 3060",
+      "status": "doing"
+    },
+    {
+      "title": "Port all books into the Brain",
+      "status": "doing"
+    },
+    {
+      "title": "Agent OS brain viewer",
+      "status": "doing"
+    },
+    {
+      "title": "DiskNCM plugin (MCP)",
+      "status": "doing"
+    },
+    {
+      "title": "Research zero-context memory",
+      "status": "doing"
+    },
+    {
+      "title": "Connect 2 more Drive accounts",
+      "status": "todo"
     }
   ]
 }

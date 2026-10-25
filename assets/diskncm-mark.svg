@@ -1,0 +1,36 @@
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 256 256" width="256" height="256" role="img" aria-label="DiskNCM">
+  <title>DiskNCM</title>
+  <defs>
+    <!-- read arm: tapered actuator from the corner pivot to the head over the data track -->
+    <g id="dncm-arm">
+      <path d="M190.4 178.7 L156.1 106.2 L149.6 108.8 L173.6 185.3 Z"/>
+      <rect x="140" y="81" width="12" height="18" rx="3" transform="rotate(-21.4 146 90)"/>
+      <circle cx="182" cy="182" r="15"/>
+    </g>
+    <!-- cuts a clean gap around the arm where it crosses the platter -->
+    <mask id="dncm-arm-gap" maskUnits="userSpaceOnUse" x="0" y="0" width="256" height="256">
+      <rect width="256" height="256" fill="#fff"/>
+      <use xlink:href="#dncm-arm" href="#dncm-arm" fill="#000" stroke="#000" stroke-width="14" stroke-linejoin="round"/>
+    </mask>
+    <!-- pivot bearing hole -->
+    <mask id="dncm-pivot-hole" maskUnits="userSpaceOnUse" x="0" y="0" width="256" height="256">
+      <rect width="256" height="256" fill="#fff"/>
+      <circle cx="182" cy="182" r="5.5" fill="#000"/>
+    </mask>
+  </defs>
+  <g fill="none" stroke="#fff" stroke-linecap="round">
+    <!-- chip pins -->
+    <path stroke-width="10" d="M83 15V36M113 15V36M143 15V36M173 15V36M83 220V241M113 220V241M143 220V241M173 220V241M15 83H36M15 113H36M15 143H36M15 173H36M220 83H241M220 113H241M220 143H241M220 173H241"/>
+    <!-- chip body -->
+    <rect x="42" y="42" width="172" height="172" rx="26" stroke-width="11"/>
+  </g>
+  <!-- pin-1 marker -->
+  <circle cx="66" cy="66" r="5.5" fill="#fff"/>
+  <!-- platter: outer edge, data track; the spindle is the AI die -->
+  <g mask="url(#dncm-arm-gap)" fill="#fff">
+    <circle cx="121" cy="121" r="57" fill="none" stroke="#fff" stroke-width="10"/>
+    <circle cx="121" cy="121" r="37" fill="none" stroke="#fff" stroke-width="4"/>
+    <path fill-rule="evenodd" d="M111 107h20a4 4 0 0 1 4 4v20a4 4 0 0 1-4 4h-20a4 4 0 0 1-4-4v-20a4 4 0 0 1 4-4zm5 9v10h10v-10z"/>
+  </g>
+  <use xlink:href="#dncm-arm" href="#dncm-arm" fill="#fff" stroke="#fff" stroke-width="2" stroke-linejoin="round" mask="url(#dncm-pivot-hole)"/>
+</svg>
