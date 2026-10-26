@@ -24,7 +24,7 @@
     phaseList.replaceChildren(
       ...phases.map((p, i) => {
         const status = phaseStatus(p.status);
-        const isCurrent = i === current && status !== "passed";
+        const isCurrent = (i === current || status === "active") && status !== "passed";
         const progress = status === "passed" ? 100 : pct(p.progress);
 
         const li = el("li", `phase phase--${status}` + (isCurrent ? " phase--current" : ""));
