@@ -1,6 +1,6 @@
 {
   "project": "DiskNCM",
-  "updated": "2026-10-26T02:05:38+00:00",
+  "updated": "2026-10-26T02:05:39+00:00",
   "current": 1,
   "phases": [
     {
@@ -11,7 +11,7 @@
     {
       "name": "Brain v1 (books)",
       "status": "active",
-      "progress": 0
+      "progress": 90
     },
     {
       "name": "Disk memory (zero-context knowledge)",
