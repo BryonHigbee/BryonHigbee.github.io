@@ -1,6 +1,6 @@
 {
   "project": "DiskNCM",
-  "updated": "2026-10-26T00:16:55+00:00",
+  "updated": "2026-10-26T00:20:25+00:00",
   "current": 0,
   "phases": [
     {
@@ -86,6 +86,10 @@
     {
       "title": "Auto-update from human news sources",
       "status": "done"
+    },
+    {
+      "title": "E1: zero-context memory test on NCM",
+      "status": "todo"
     }
   ]
 }
