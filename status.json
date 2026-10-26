@@ -9,47 +9,47 @@
       "progress": 100
     },
     {
-      "name": "Brain v1 (books \u2014 continuous)",
+      "name": "Hippocampal Brain (books & Ultra-7z \u2014 continuous)",
       "status": "active",
       "progress": 100
     },
     {
-      "name": "Disk memory (zero-context knowledge)",
+      "name": "Neocortical Disk Memory (zero-context PKM on NCM)",
       "status": "active",
       "progress": 80
     },
     {
-      "name": "NCMFA core",
+      "name": "Cortical Hierarchy & Multi-Layer NCMFA Core",
       "status": "pending",
       "progress": 0
     },
     {
-      "name": "Tools, web search & MCP",
+      "name": "Prefrontal Executive: MCP Tools & Web Search",
       "status": "pending",
       "progress": 0
     },
     {
-      "name": "Vision & live video",
+      "name": "Visual Cortex: Live Vision & Streaming Video",
       "status": "pending",
       "progress": 0
     },
     {
-      "name": "Computer use",
+      "name": "Motor Cortex: Guarded Computer Use",
       "status": "pending",
       "progress": 0
     },
     {
-      "name": "Plugin for any agent",
+      "name": "Universal Brain Plugin (MCP for any agent)",
       "status": "pending",
       "progress": 0
     },
     {
-      "name": "Learning loop & news",
+      "name": "Sleep Consolidation & Verified-Human News Loop",
       "status": "pending",
       "progress": 0
     },
     {
-      "name": "Evaluation (ARC-AGI live)",
+      "name": "Live AGI Scoreboard (ARC-AGI-2/3 & Knowledge)",
       "status": "pending",
       "progress": 0
     }
@@ -74,10 +74,6 @@
     {
       "title": "Research zero-context memory",
       "status": "done"
-    },
-    {
-      "title": "Connect 2 more Drive accounts",
-      "status": "todo"
     },
     {
       "title": "Partner folder + upload access",
