@@ -1,6 +1,6 @@
 {
   "project": "DiskNCM",
-  "updated": "2026-10-26T14:39:06+00:00",
+  "updated": "2026-10-26T14:47:16+00:00",
   "current": 4,
   "phases": [
     {
@@ -101,7 +101,7 @@
     },
     {
       "title": "Choose a web search provider",
-      "status": "todo"
+      "status": "done"
     }
   ]
 }
