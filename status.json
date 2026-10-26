@@ -1,7 +1,7 @@
 {
   "project": "DiskNCM",
-  "updated": "2026-10-26T14:48:18+00:00",
-  "current": 4,
+  "updated": "2026-10-26T17:23:07+00:00",
+  "current": 5,
   "phases": [
     {
       "name": "Baseline (NCM + local core)",
@@ -25,12 +25,12 @@
     },
     {
       "name": "Prefrontal Executive: MCP Tools & Web Search",
-      "status": "review",
-      "progress": 99
+      "status": "passed",
+      "progress": 100
     },
     {
       "name": "Visual Cortex: Live Vision & Streaming Video",
-      "status": "pending",
+      "status": "active",
       "progress": 0
     },
     {
