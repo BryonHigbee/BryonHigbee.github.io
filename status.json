@@ -1,6 +1,6 @@
 {
   "project": "DiskNCM",
-  "updated": "2026-10-26T14:14:40+00:00",
+  "updated": "2026-10-26T14:14:46+00:00",
   "current": 3,
   "phases": [
     {
@@ -90,6 +90,10 @@
     {
       "title": "Scale Multi-Layer PKM (blocks 3, 6, 9) across NCM levels",
       "status": "doing"
+    },
+    {
+      "title": "Run multi-layer 7,873-fact PKM + speed tests on Modal (needs Bryon OK, <= $10 of free credit)",
+      "status": "todo"
     }
   ]
 }
