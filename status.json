@@ -1,6 +1,6 @@
 {
   "project": "DiskNCM",
-  "updated": "2026-10-26T02:10:44+00:00",
+  "updated": "2026-10-26T02:10:45+00:00",
   "current": 2,
   "phases": [
     {
@@ -16,7 +16,7 @@
     {
       "name": "Disk memory (zero-context knowledge)",
       "status": "active",
-      "progress": 0
+      "progress": 75
     },
     {
       "name": "NCMFA core",
