@@ -1,7 +1,7 @@
 {
   "project": "DiskNCM",
-  "updated": "2026-10-26T02:51:54+00:00",
-  "current": 2,
+  "updated": "2026-10-26T02:52:37+00:00",
+  "current": 3,
   "phases": [
     {
       "name": "Baseline (NCM + local core)",
@@ -15,12 +15,12 @@
     },
     {
       "name": "Neocortical Disk Memory (zero-context PKM on NCM)",
-      "status": "review",
-      "progress": 99
+      "status": "passed",
+      "progress": 100
     },
     {
       "name": "Cortical Hierarchy & Multi-Layer NCMFA Core",
-      "status": "pending",
+      "status": "active",
       "progress": 0
     },
     {
