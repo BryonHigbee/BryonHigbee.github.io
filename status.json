@@ -1,7 +1,7 @@
 {
   "project": "DiskNCM",
-  "updated": "2026-10-26T02:10:43+00:00",
-  "current": 1,
+  "updated": "2026-10-26T02:10:44+00:00",
+  "current": 2,
   "phases": [
     {
       "name": "Baseline (NCM + local core)",
@@ -10,12 +10,12 @@
     },
     {
       "name": "Brain v1 (books)",
-      "status": "review",
-      "progress": 90
+      "status": "passed",
+      "progress": 100
     },
     {
       "name": "Disk memory (zero-context knowledge)",
-      "status": "pending",
+      "status": "active",
       "progress": 0
     },
     {
