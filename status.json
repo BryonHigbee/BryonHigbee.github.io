@@ -1,7 +1,7 @@
 {
   "project": "DiskNCM",
-  "updated": "2026-10-26T14:14:46+00:00",
-  "current": 3,
+  "updated": "2026-10-26T14:31:37+00:00",
+  "current": 4,
   "phases": [
     {
       "name": "Baseline (NCM + local core)",
@@ -20,12 +20,12 @@
     },
     {
       "name": "Cortical Hierarchy & Multi-Layer NCMFA Core",
-      "status": "review",
-      "progress": 85
+      "status": "passed",
+      "progress": 100
     },
     {
       "name": "Prefrontal Executive: MCP Tools & Web Search",
-      "status": "pending",
+      "status": "active",
       "progress": 0
     },
     {
