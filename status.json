@@ -1,6 +1,6 @@
 {
   "project": "DiskNCM",
-  "updated": "2026-10-26T00:07:29+00:00",
+  "updated": "2026-10-26T00:15:25+00:00",
   "current": 0,
   "phases": [
     {
@@ -61,7 +61,7 @@
     },
     {
       "title": "Port all books into the Brain",
-      "status": "doing"
+      "status": "done"
     },
     {
       "title": "Agent OS brain viewer",
