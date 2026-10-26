@@ -1,6 +1,6 @@
 {
   "project": "DiskNCM",
-  "updated": "2026-10-26T00:04:16+00:00",
+  "updated": "2026-10-26T00:04:21+00:00",
   "current": 0,
   "phases": [
     {
@@ -81,7 +81,7 @@
     },
     {
       "title": "Partner folder + upload access",
-      "status": "todo"
+      "status": "done"
     },
     {
       "title": "Auto-update from human news sources",
