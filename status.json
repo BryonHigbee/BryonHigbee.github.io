@@ -1,6 +1,6 @@
 {
   "project": "DiskNCM",
-  "updated": "2026-10-26T00:15:28+00:00",
+  "updated": "2026-10-26T00:16:55+00:00",
   "current": 0,
   "phases": [
     {
@@ -65,7 +65,7 @@
     },
     {
       "title": "Agent OS brain viewer",
-      "status": "doing"
+      "status": "done"
     },
     {
       "title": "DiskNCM plugin (MCP)",
