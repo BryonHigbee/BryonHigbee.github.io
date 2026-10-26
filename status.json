@@ -1,6 +1,6 @@
 {
   "project": "DiskNCM",
-  "updated": "2026-10-26T00:04:14+00:00",
+  "updated": "2026-10-26T00:04:15+00:00",
   "current": 0,
   "phases": [
     {
@@ -77,6 +77,10 @@
     },
     {
       "title": "Connect 2 more Drive accounts",
+      "status": "todo"
+    },
+    {
+      "title": "Partner folder + upload access",
       "status": "todo"
     }
   ]
