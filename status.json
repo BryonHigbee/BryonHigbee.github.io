@@ -1,6 +1,6 @@
 {
   "project": "DiskNCM",
-  "updated": "2026-10-26T14:38:57+00:00",
+  "updated": "2026-10-26T14:38:59+00:00",
   "current": 4,
   "phases": [
     {
@@ -93,6 +93,10 @@
     },
     {
       "title": "Run multi-layer 7,873-fact PKM + speed tests on Modal (needs Bryon OK, <= $10 of free credit)",
+      "status": "todo"
+    },
+    {
+      "title": "Sandboxed tools + MCP client",
       "status": "todo"
     }
   ]
