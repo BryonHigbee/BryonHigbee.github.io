@@ -1,12 +1,12 @@
 {
   "project": "DiskNCM",
-  "updated": "2026-10-26T00:04:23+00:00",
+  "updated": "2026-10-26T00:07:29+00:00",
   "current": 0,
   "phases": [
     {
       "name": "Baseline (NCM + local core)",
       "status": "active",
-      "progress": 0
+      "progress": 30
     },
     {
       "name": "Brain v1 (books)",
