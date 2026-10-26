@@ -1,6 +1,6 @@
 {
   "project": "DiskNCM",
-  "updated": "2026-10-26T02:54:16+00:00",
+  "updated": "2026-10-26T02:54:17+00:00",
   "current": 3,
   "phases": [
     {
@@ -89,7 +89,7 @@
     },
     {
       "title": "Scale Multi-Layer PKM (blocks 3, 6, 9) across NCM levels",
-      "status": "todo"
+      "status": "doing"
     }
   ]
 }
