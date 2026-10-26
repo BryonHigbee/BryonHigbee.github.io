@@ -1,6 +1,6 @@
 {
   "project": "DiskNCM",
-  "updated": "2026-10-26T14:38:59+00:00",
+  "updated": "2026-10-26T14:39:05+00:00",
   "current": 4,
   "phases": [
     {
@@ -97,7 +97,7 @@
     },
     {
       "title": "Sandboxed tools + MCP client",
-      "status": "todo"
+      "status": "done"
     }
   ]
 }
