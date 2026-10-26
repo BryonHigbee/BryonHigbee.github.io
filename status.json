@@ -1,6 +1,6 @@
 {
   "project": "DiskNCM",
-  "updated": "2026-10-26T00:20:25+00:00",
+  "updated": "2026-10-26T00:20:26+00:00",
   "current": 0,
   "phases": [
     {
@@ -89,7 +89,7 @@
     },
     {
       "title": "E1: zero-context memory test on NCM",
-      "status": "todo"
+      "status": "doing"
     }
   ]
 }
