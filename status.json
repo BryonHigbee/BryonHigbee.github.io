@@ -1,6 +1,6 @@
 {
   "project": "DiskNCM",
-  "updated": "2026-10-26T02:52:37+00:00",
+  "updated": "2026-10-26T02:54:16+00:00",
   "current": 3,
   "phases": [
     {
@@ -86,6 +86,10 @@
     {
       "title": "E1: zero-context memory test on NCM",
       "status": "done"
+    },
+    {
+      "title": "Scale Multi-Layer PKM (blocks 3, 6, 9) across NCM levels",
+      "status": "todo"
     }
   ]
 }
