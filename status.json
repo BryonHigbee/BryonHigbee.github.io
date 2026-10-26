@@ -1,6 +1,6 @@
 {
   "project": "DiskNCM",
-  "updated": "2026-10-26T00:15:25+00:00",
+  "updated": "2026-10-26T00:15:27+00:00",
   "current": 0,
   "phases": [
     {
@@ -69,7 +69,7 @@
     },
     {
       "title": "DiskNCM plugin (MCP)",
-      "status": "doing"
+      "status": "done"
     },
     {
       "title": "Research zero-context memory",
