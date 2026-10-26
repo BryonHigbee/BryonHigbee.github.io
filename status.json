@@ -1,6 +1,6 @@
 {
   "project": "DiskNCM",
-  "updated": "2026-10-26T02:19:54+00:00",
+  "updated": "2026-10-26T02:29:16+00:00",
   "current": 2,
   "phases": [
     {
@@ -9,14 +9,14 @@
       "progress": 100
     },
     {
-      "name": "Brain v1 (books)",
-      "status": "passed",
+      "name": "Brain v1 (books \u2014 continuous)",
+      "status": "active",
       "progress": 100
     },
     {
       "name": "Disk memory (zero-context knowledge)",
       "status": "active",
-      "progress": 78
+      "progress": 80
     },
     {
       "name": "NCMFA core",
