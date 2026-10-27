@@ -1,6 +1,6 @@
 {
   "project": "DiskNCM",
-  "updated": "2026-10-27T04:22:00+00:00",
+  "updated": "2026-10-27T04:28:00+00:00",
   "current": 10,
   "scores": [
     {
@@ -30,7 +30,7 @@
     {
       "benchmark": "5. Official ARC-AGI Benchmark (Blind Zero-Leakage Program Synthesis, 800 Tasks)",
       "base": "~8-12% (4B LLM alone)",
-      "harness": "22.50% Training (90/400) · 15.12% Overall (121/800)",
+      "harness": "23.75% Training (95/400) \u00b7 16.25% Overall (130/800)",
       "evidence": "Measured blind on fchollet/ARC-AGI (python -m benchmarks.arc_agi_solver, 0 test leakage)"
     },
     {
@@ -42,63 +42,63 @@
     {
       "benchmark": "7. Live Compressed Brain Corpus (SimHash Dedup + 32-Note Lossless PPMd)",
       "base": "0 notes (stateless 4B)",
-      "harness": "3,137,779+ notes (13.0 GB compressed / ~48 GB raw, 0 pending)",
+      "harness": "3,533,038+ notes (13.6 GB compressed / ~50 GB raw, 0 pending)",
       "evidence": "Measured live in .diskncm/{index.sqlite,bodies.sqlite} (grinding toward 200 GB / 40M target)"
     }
   ],
   "phases": [
     {
-      "name": "Phase 0 — Baseline & Hardware Bring-Up",
+      "name": "Phase 0 \u2014 Baseline & Hardware Bring-Up",
       "status": "passed",
       "progress": 100
     },
     {
-      "name": "Phase 1 — Brain Audit, Dedup & Licensing Gate (0 Pending)",
+      "name": "Phase 1 \u2014 Brain Audit, Dedup & Licensing Gate (0 Pending)",
       "status": "passed",
       "progress": 100
     },
     {
-      "name": "Phase 2 — DiskNCM Core v3 (Rust + CUDA int8, 262K Context, 60 tok/s)",
+      "name": "Phase 2 \u2014 DiskNCM Core v3 (Rust + CUDA int8, 262K Context, 60 tok/s)",
       "status": "passed",
       "progress": 100
     },
     {
-      "name": "Phase 3 — Cloud-Only 32-Note Lossless PPMd Brain & Laya Recall Router",
+      "name": "Phase 3 \u2014 Cloud-Only 32-Note Lossless PPMd Brain & Laya Recall Router",
       "status": "passed",
       "progress": 100
     },
     {
-      "name": "Phase 4 — Executive Cortex (Sandboxed Tools, MCP & SearXNG Web Search)",
+      "name": "Phase 4 \u2014 Executive Cortex (Sandboxed Tools, MCP & SearXNG Web Search)",
       "status": "passed",
       "progress": 100
     },
     {
-      "name": "Phase 5 — Visual Cortex (GPU VisionTower, 3D M-RoPE Video & Web Visual Learning)",
+      "name": "Phase 5 \u2014 Visual Cortex (GPU VisionTower, 3D M-RoPE Video & Web Visual Learning)",
       "status": "passed",
       "progress": 100
     },
     {
-      "name": "Phase 6 — Motor Cortex (Guarded Computer Use & Confirmation Gates)",
+      "name": "Phase 6 \u2014 Motor Cortex (Guarded Computer Use & Confirmation Gates)",
       "status": "passed",
       "progress": 100
     },
     {
-      "name": "Phase 7 — Fast Knowledge Graph & 0.90 ms WebGL Brain Map",
+      "name": "Phase 7 \u2014 Fast Knowledge Graph & 0.90 ms WebGL Brain Map",
       "status": "passed",
       "progress": 100
     },
     {
-      "name": "Phase 8 — Sleep Consolidation & Verified-Human News Loop",
+      "name": "Phase 8 \u2014 Sleep Consolidation & Verified-Human News Loop",
       "status": "passed",
       "progress": 100
     },
     {
-      "name": "Phase 9 — Live AGI Scoreboard & Blind ARC-AGI Program Synthesizer (121/800 Solved)",
+      "name": "Phase 9 \u2014 Live AGI Scoreboard & Blind ARC-AGI Program Synthesizer (130/800 Solved)",
       "status": "passed",
       "progress": 100
     },
     {
-      "name": "All Initial Phases Run — Actively Grinding Toward 200 GB / 40M Notes & Smarter Harness",
+      "name": "All Initial Phases Run \u2014 Actively Grinding Toward 200 GB / 40M Notes & Smarter Harness",
       "status": "active",
       "progress": 96
     }
@@ -125,11 +125,11 @@
       "status": "done"
     },
     {
-      "title": "Blind Zero-Leakage ARC-AGI Program Synthesizer: 22.50% Training (90/400) & 15.12% Overall (121/800)",
+      "title": "Blind Zero-Leakage ARC-AGI Program Synthesizer: 23.75% Training (95/400) & 16.25% Overall (130/800)",
       "status": "done"
     },
     {
-      "title": "Continuous 32-note PPMd Brain grind (3.14M+ notes / 13.0 GB compressed -> 200 GB / 40M target)",
+      "title": "Continuous 32-note PPMd Brain grind (3,533,038+ notes -> 200 GB / 40M target)",
       "status": "doing"
     }
   ]
