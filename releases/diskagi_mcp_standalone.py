@@ -54,7 +54,7 @@ _FILLER_Q_WORDS = {
     "implement", "complete", "write", "good", "original", "check", "open", "prevent", "using",
     "create", "build", "program", "function", "simple", "example", "line", "perform", "detect",
     "techniques", "parameters", "according", "detection", "scanning", "binaries", "attacks",
-    "tests", "rules", "server", "windows", "events", "logs",
+    "tests", "rules", "server", "windows", "events", "logs", "vulnerability", "vulnerabilities",
 }
 
 _GENERIC_TITLE_WORDS = {
