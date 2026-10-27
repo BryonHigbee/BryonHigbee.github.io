@@ -52,7 +52,9 @@ _STOP = frozenset(
 _FILLER_Q_WORDS = {
     "python", "rust", "javascript", "linux", "script", "code", "show", "make", "work", "working",
     "implement", "complete", "write", "good", "original", "check", "open", "prevent", "using",
-    "create", "build", "program", "function", "simple", "example", "line",
+    "create", "build", "program", "function", "simple", "example", "line", "perform", "detect",
+    "techniques", "parameters", "according", "detection", "scanning", "binaries", "attacks",
+    "tests", "rules", "server", "windows", "events", "logs",
 }
 
 _GENERIC_TITLE_WORDS = {
@@ -357,6 +359,56 @@ def tool_brain_recall(query: str, limit: int = 12) -> str:
     con = sqlite3.connect(f"file:{idx_db}?mode=ro", uri=True, timeout=10.0)
     con.row_factory = sqlite3.Row
     try:
+        all_cat_pfxs = [p[:-1].lower() for _, _, pfxs in classified for p in pfxs]
+        distinctive = [t for t in ranked_q if len(t) >= 3 and t not in _GENERIC_TITLE_WORDS][:6]
+        if distinctive:
+            dyn_queries: list[str] = []
+            for dt_term in distinctive[:5]:
+                others = [t for t in distinctive if t != dt_term]
+                if others:
+                    oth_expr = " OR ".join(f'"{t}"' for t in others[:5])
+                    dyn_queries.append(f'title:"{dt_term}" AND ({oth_expr})')
+            per_book_dyn: dict[str, int] = {}
+            for dq in dyn_queries:
+                if len(picked) >= min(eff_limit, 10):
+                    break
+                try:
+                    d_ids = [r[0] for r in con.execute("SELECT rowid FROM notes_fts WHERE notes_fts MATCH ? LIMIT 50", (dq,)).fetchall()]
+                except sqlite3.OperationalError:
+                    d_ids = []
+                scored_dyn = []
+                for cid in d_ids:
+                    if cid in seen_ids:
+                        continue
+                    row = con.execute("SELECT id, title, type, path FROM notes WHERE id = ?", (cid,)).fetchone()
+                    if not row or row["type"] != "chapter":
+                        continue
+                    rt_low = row["title"].lower()
+                    thits = sum(3 if t in rt_low else 0 for t in distinctive)
+                    if all_cat_pfxs and not any(rt_low.startswith(p) for p in all_cat_pfxs) and thits < 6:
+                        continue
+                    if thits >= 3:
+                        scored_dyn.append((-thits, -cid, cid, row))
+                scored_dyn.sort()
+                for _, _, cid, row in scored_dyn:
+                    bprefix = row["title"].split(" — ")[0].lower()
+                    if per_book_dyn.get(bprefix, 0) >= 2:
+                        continue
+                    excerpt = _best_window(_read_note_body(root, cid, row["path"]), q_str, 900)
+                    if excerpt:
+                        picked.append({
+                            "id": cid,
+                            "title": row["title"],
+                            "type": row["type"],
+                            "category": classified[0][0] if classified else "Dynamic Recall",
+                            "excerpt": excerpt,
+                            "coverage": 1.0,
+                        })
+                        seen_ids.add(cid)
+                        per_book_dyn[bprefix] = per_book_dyn.get(bprefix, 0) + 1
+                        if len(picked) >= min(eff_limit, 8):
+                            break
+
         total_prob = sum(p for _, p, _ in classified) or 1.0
         for _, (cat_name, prob, prefixes) in enumerate(classified):
             if len(picked) >= eff_limit:
