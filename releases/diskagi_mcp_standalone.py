@@ -90,7 +90,7 @@ _CATEGORY_ROUTES = (
      ("Dataset: CP-Algorithms%", "Dataset: TheAlgorithms%", "Dataset: Learn X%", "Dataset: TLDR%", "Dataset: Devhints%", "Dataset: Google MBPP%", "Dataset: HumanEval%", "Dataset: BigCode%", "Dataset: EvalPlus%", "Dataset: MultiPL-E%", "Dataset: DeepMind CodeContests%", "Dataset: SWE-bench%")),
     ("Mathematics & Proofs", re.compile(r"\b(math\w*|algebra\w*|geometry|calculus|trigonometry|probability|combinatorics|number theory|theorem|proof|equation|integral|derivative|matrix|prime|polynomial|olympiad|aime|amc|gsm8k|ratio|percent\w*|solve|root|roots|integer\w*|quadratic|factor\w*|x\^2)\b", re.I),
      ("Dataset: Hendrycks Competition Mathematics%", "Dataset: MATH-500%", "Dataset: OpenAI GSM8K%", "Dataset: DeepMind AQuA-RAT%", "Dataset: TheoremQA%", "Dataset: OlympiadBench%")),
-    ("Physics, Chemistry & Science", re.compile(r"\b(physics|chemistry|biology|astronomy|thermodynamics|quantum|relativity|electromagn\w*|atom\w*|molecule|reaction|cell|genetics|evolution|ecology|force|velocity|energy|wavelength|photon|planet|gravity|arxiv)\b", re.I),
+    ("Physics, Chemistry & Science", re.compile(r"\b(physics|chemistry|biology|astronomy|thermodynamics|quantum|relativity|electromagn\w*|atoms?|molecule|reaction|cell|genetics|evolution|ecology|force|velocity|energy|wavelength|photon|planet|gravity|arxiv)\b", re.I),
      ("Science: ArXiv%", "Dataset: ELI5%", "Dataset: AllenAI SciQ%", "Dataset: ScienceQA%", "Dataset: AllenAI ARC%", "Dataset: AllenAI OpenBookQA%", "Dataset: SciBench%", "Dataset: MMLU%")),
     ("Medicine & Clinical Science", re.compile(r"\b(medical|medicine|clinical|patient|symptom|diagnosis|treatment|therapy|disease|syndrome|pharmacology|drug|anatomy|physiology|biomedical|pubmed|usmle|hospital|surgery)\b", re.I),
      ("Medicine: PubMed%", "Dataset: PubMedQA%", "Dataset: MedQA USMLE%", "Dataset: MMLU%")),
@@ -350,8 +350,8 @@ def tool_brain_recall(query: str, limit: int = 12) -> str:
             for t in exp:
                 if t not in extra_terms:
                     extra_terms.append(t)
-    ranked_q = sorted((t for t in weights if t not in _FILLER_Q_WORDS), key=lambda t: weights[t], reverse=True)[:6]
-    search_terms = list(dict.fromkeys([*ranked_q, *extra_terms[:5]]))[:9] or msg_terms[:4] or ["reference"]
+    ranked_q = sorted((t for t in weights if t not in _FILLER_Q_WORDS), key=lambda t: weights[t], reverse=True)[:10]
+    search_terms = list(dict.fromkeys([*ranked_q[:6], *extra_terms[:5]]))[:9] or msg_terms[:4] or ["reference"]
     q_str = " ".join(search_terms)
 
     picked: list[dict[str, Any]] = []
@@ -360,10 +360,10 @@ def tool_brain_recall(query: str, limit: int = 12) -> str:
     con.row_factory = sqlite3.Row
     try:
         all_cat_pfxs = [p[:-1].lower() for _, _, pfxs in classified for p in pfxs]
-        distinctive = [t for t in ranked_q if len(t) >= 3 and t not in _GENERIC_TITLE_WORDS][:6]
+        distinctive = [t for t in ranked_q if len(t) >= 3 and t not in _GENERIC_TITLE_WORDS][:8]
         if distinctive:
             dyn_queries: list[str] = []
-            for dt_term in distinctive[:5]:
+            for dt_term in distinctive[:7]:
                 others = [t for t in distinctive if t != dt_term]
                 if others:
                     oth_expr = " OR ".join(f'"{t}"' for t in others[:5])
@@ -385,7 +385,7 @@ def tool_brain_recall(query: str, limit: int = 12) -> str:
                         continue
                     rt_low = row["title"].lower()
                     thits = sum(3 if t in rt_low else 0 for t in distinctive)
-                    if all_cat_pfxs and not any(rt_low.startswith(p) for p in all_cat_pfxs) and thits < 6:
+                    if all_cat_pfxs and not any(rt_low.startswith(p) for p in all_cat_pfxs):
                         continue
                     if thits >= 3:
                         scored_dyn.append((-thits, -cid, cid, row))
