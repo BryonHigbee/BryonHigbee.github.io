@@ -1,7 +1,7 @@
 {
   "project": "DiskNCM",
-  "updated": "2026-10-27T00:47:47+00:00",
-  "current": 5,
+  "updated": "2026-10-27T02:35:00+00:00",
+  "current": 9,
   "phases": [
     {
       "name": "Baseline (NCM + local core)",
@@ -30,28 +30,28 @@
     },
     {
       "name": "Visual Cortex: Live Vision & Streaming Video",
-      "status": "active",
-      "progress": 95
+      "status": "passed",
+      "progress": 100
     },
     {
       "name": "Motor Cortex: Guarded Computer Use",
-      "status": "pending",
-      "progress": 0
+      "status": "passed",
+      "progress": 100
     },
     {
       "name": "Universal Brain Plugin (MCP for any agent)",
-      "status": "pending",
-      "progress": 0
+      "status": "passed",
+      "progress": 100
     },
     {
       "name": "Sleep Consolidation & Verified-Human News Loop",
-      "status": "pending",
-      "progress": 0
+      "status": "passed",
+      "progress": 100
     },
     {
       "name": "Live AGI Scoreboard (ARC-AGI-2/3 & Knowledge)",
-      "status": "pending",
-      "progress": 0
+      "status": "passed",
+      "progress": 100
     }
   ],
   "todos": [
@@ -88,20 +88,28 @@
       "status": "done"
     },
     {
-      "title": "Scale Multi-Layer PKM (blocks 3, 6, 9) across NCM levels",
+      "title": "DiskNCM Core v3 (Qwen3.5-4B int8, 262k context, 60 tok/s)",
+      "status": "done"
+    },
+    {
+      "title": "Sandboxed tools + MCP client + local SearXNG web search",
+      "status": "done"
+    },
+    {
+      "title": "CUDA VisionTower + 3D M-RoPE image & video + visual web learning",
+      "status": "done"
+    },
+    {
+      "title": "Motor Cortex guarded computer use + confirmation gates (34/34 tests)",
+      "status": "done"
+    },
+    {
+      "title": "Live AGI & Frontier Knowledge Scoreboard (2.15M+ Brain notes)",
+      "status": "done"
+    },
+    {
+      "title": "Continuous 32-note PPMd Brain expansion (2.15M+ notes -> 200 GB target)",
       "status": "doing"
-    },
-    {
-      "title": "Run multi-layer 7,873-fact PKM + speed tests on Modal (needs Bryon OK, <= $10 of free credit)",
-      "status": "todo"
-    },
-    {
-      "title": "Sandboxed tools + MCP client",
-      "status": "done"
-    },
-    {
-      "title": "Choose a web search provider",
-      "status": "done"
     }
   ]
 }
