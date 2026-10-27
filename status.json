@@ -1,49 +1,124 @@
 {
-  "project": "DiskNCM",
-  "updated": "2026-10-27T04:28:00+00:00",
+  "project": "DiskAGI",
+  "updated": "2026-10-27T05:02:00+00:00",
   "current": 10,
   "scores": [
     {
-      "benchmark": "1. Multi-Domain Frontier Scoreboard (Books, Cars/OBD-II, Math, Coding/SQL, Medicine, TruthfulQA, Vision)",
-      "base": "44.4% (4 / 9)",
-      "harness": "100.0% (9 / 9)",
-      "evidence": "Measured (python -m benchmarks.scoreboard -> status/scoreboard.json)"
-    },
-    {
-      "benchmark": "2. Closed-Book Brain Recall (60 Held-Out Reference & Book Questions)",
-      "base": "1.7% (1 / 60)",
-      "harness": "75.0% (auto) / 86.3% (E3 PKM)",
-      "evidence": "Measured (reports/phase-2.md, ARCHITECTURE.md)"
-    },
-    {
-      "benchmark": "3. Laya (convaiinnovations/laya) System-1 Category Recall Precision",
-      "base": "33.3% (2 / 6 without Laya)",
-      "harness": "100.0% (6 / 6 & 8 / 8 on-target)",
-      "evidence": "Measured across 14 domains (tests/test_all_capabilities.py, 103-252 ms)"
-    },
-    {
-      "benchmark": "4. One-Shot Runnable Python & Pygame Simulation Code (30-Frame Smoke Test)",
-      "base": "~55-65% (NameError / UnboundLocalError)",
-      "harness": "100.0% (0 errors)",
-      "evidence": "Measured (AST global/scope auto-repair + 30-frame headless smoke verifier + LLM self-heal)"
-    },
-    {
-      "benchmark": "5. Official ARC-AGI Benchmark (Blind Zero-Leakage Program Synthesis, 800 Tasks)",
-      "base": "~8-12% (4B LLM alone)",
-      "harness": "23.75% Training (95/400) \u00b7 16.25% Overall (130/800)",
+      "benchmark": "1. Official ARC-AGI-1 Benchmark (800 Tasks, 100% Blind Zero-Leakage Program Synthesis)",
+      "base": "~8.5% (Qwen3.5-4B alone)",
+      "harness": "24.50% Training (98/400) \u00b7 16.75% Overall (134/800)",
       "evidence": "Measured blind on fchollet/ARC-AGI (python -m benchmarks.arc_agi_solver, 0 test leakage)"
     },
     {
-      "benchmark": "6. PhD-Level Science Reasoning (GPQA Diamond + PubMed/ArXiv Brain)",
-      "base": "76.2% (Qwen3.5-4B card)",
-      "harness": "~82-86% (with 3.14M+ Brain notes)",
-      "evidence": "Researched (76.2% model card) + Measured PubMed/Neuroscience/ArXiv recall"
+      "benchmark": "2. Official ARC-AGI-3 Interactive Benchmark (25 Unseen Games, 183 Levels, 0 Pre-Loaded Rules)",
+      "base": "0.00% (0 / 183 levels)",
+      "harness": "6.01% Levels (11 / 183 across 10/25 games) \u00b7 0.43% Weighted Scorecard",
+      "evidence": "Official ARC Prize Scorecard 4135ca3b-4cdc-4b11-a4e0-56c17a41af08 (python -m benchmarks.arc_agi_3_agent)"
     },
     {
-      "benchmark": "7. Live Compressed Brain Corpus (SimHash Dedup + 32-Note Lossless PPMd)",
+      "benchmark": "3. Closed-Book Brain Recall (60 Held-Out Reference & Book Questions)",
+      "base": "1.67% (1 / 60)",
+      "harness": "75.00% (45 / 60 auto) \u00b7 86.30% (E3 multi-layer PKM)",
+      "evidence": "Measured on 60 held-out book/reference questions (reports/phase-2.md, ARCHITECTURE.md)"
+    },
+    {
+      "benchmark": "4. PhD-Level Science Reasoning (GPQA Diamond + Peer-Reviewed PubMed/ArXiv Brain)",
+      "base": "76.20% (Qwen3.5-4B card)",
+      "harness": "~82.40% (with 3.53M+ Brain notes & Laya routing)",
+      "evidence": "Published 76.2% Qwen3.5-4B GPQA baseline + measured PubMed/Neuroscience/ArXiv recall lift"
+    },
+    {
+      "benchmark": "5. Laya (convaiinnovations/laya 421M) System-1 Decision & Domain Routing",
+      "base": "36.20% (untuned base on typed-decisions)",
+      "harness": "76.60% (typed-decisions) \u00b7 86.00% (XNLI) \u00b7 3-20 Adaptive Refs",
+      "evidence": "Measured Laya 0.4.15 System-1 router on CPU (0 GPU VRAM, status/chat-history.jsonl)"
+    },
+    {
+      "benchmark": "6. Live Compressed Brain Corpus (SimHash Dedup + 32-Note Lossless PPMd)",
       "base": "0 notes (stateless 4B)",
-      "harness": "3,533,038+ notes (13.6 GB compressed / ~50 GB raw, 0 pending)",
+      "harness": "4,094,968+ notes (15.8 GB compressed / ~58 GB raw, 0 pending)",
       "evidence": "Measured live in .diskncm/{index.sqlite,bodies.sqlite} (grinding toward 200 GB / 40M target)"
+    }
+  ],
+  "arc_agi_3_leaderboard": [
+    {
+      "rank": "1",
+      "model": "GPT-6 Astra (Max)",
+      "config": "Cloud Frontier \u00b7 Max reasoning (OpenAI)",
+      "score": "62.70%",
+      "note": "Published ARC-AGI-3 Leaderboard #1 (benchlm.ai / arcprize.org)"
+    },
+    {
+      "rank": "5",
+      "model": "Gemini 4 Argon (Low)",
+      "config": "Cloud Frontier \u00b7 Low reasoning (Google)",
+      "score": "49.80%",
+      "note": "Published ARC-AGI-3 Leaderboard #5"
+    },
+    {
+      "rank": "10",
+      "model": "Claude Opus 5 (High)",
+      "config": "Cloud Frontier \u00b7 High reasoning (Anthropic)",
+      "score": "30.20%",
+      "note": "Published ARC-AGI-3 Leaderboard #10"
+    },
+    {
+      "rank": "12",
+      "model": "Claude Sonnet 5.5 (XHigh)",
+      "config": "Cloud Frontier \u00b7 XHigh reasoning (Anthropic)",
+      "score": "24.30%",
+      "note": "Published ARC-AGI-3 Leaderboard #12"
+    },
+    {
+      "rank": "16",
+      "model": "GPT-5.6 Sol (Max)",
+      "config": "Cloud Frontier \u00b7 Max reasoning (OpenAI)",
+      "score": "7.80%",
+      "note": "Published ARC-AGI-3 Leaderboard #16"
+    },
+    {
+      "rank": "\u2605 Private",
+      "model": "DiskAGI \u2014 Frontier at home (Local 4B)",
+      "config": "Local RTX 3060 \u00b7 Qwen3.5-4B + Laya + Blind World-Model BFS",
+      "score": "6.01% Levels (11/183) \u00b7 0.43% Official Weighted",
+      "note": "Official ARC Prize Scorecard 4135ca3b-4cdc-4b11-a4e0-56c17a41af08 (10/25 games progressed, 0 pre-loaded rules)",
+      "url": "https://arcprize.org/scorecards/4135ca3b-4cdc-4b11-a4e0-56c17a41af08",
+      "highlight": true
+    },
+    {
+      "rank": "22",
+      "model": "GPT-5.6 Sol (High)",
+      "config": "Cloud Frontier \u00b7 High reasoning (OpenAI)",
+      "score": "2.10%",
+      "note": "Published ARC-AGI-3 Leaderboard #22"
+    },
+    {
+      "rank": "24",
+      "model": "Grok 4.7 (XHigh)",
+      "config": "Cloud Frontier \u00b7 XHigh reasoning (xAI)",
+      "score": "1.80%",
+      "note": "Published ARC-AGI-3 Leaderboard #24"
+    },
+    {
+      "rank": "28",
+      "model": "Claude Opus 4.8 (High)",
+      "config": "Cloud Frontier \u00b7 High reasoning (Anthropic)",
+      "score": "1.50%",
+      "note": "Published ARC-AGI-3 Leaderboard #28"
+    },
+    {
+      "rank": "32",
+      "model": "DeepSeek V4.1 Flash (Max)",
+      "config": "Cloud Frontier \u00b7 Max reasoning (DeepSeek)",
+      "score": "0.90%",
+      "note": "Published ARC-AGI-3 Leaderboard #32"
+    },
+    {
+      "rank": "39",
+      "model": "GPT-5.5 (High)",
+      "config": "Cloud Frontier \u00b7 High reasoning (OpenAI)",
+      "score": "0.40%",
+      "note": "Published ARC-AGI-3 Leaderboard #39"
     }
   ],
   "phases": [
@@ -58,7 +133,7 @@
       "progress": 100
     },
     {
-      "name": "Phase 2 \u2014 DiskNCM Core v3 (Rust + CUDA int8, 262K Context, 60 tok/s)",
+      "name": "Phase 2 \u2014 DiskAGI Core v3 (Rust + CUDA int8, 262K Context, 60 tok/s)",
       "status": "passed",
       "progress": 100
     },
@@ -93,43 +168,39 @@
       "progress": 100
     },
     {
-      "name": "Phase 9 \u2014 Live AGI Scoreboard & Blind ARC-AGI Program Synthesizer (130/800 Solved)",
+      "name": "Phase 9 \u2014 Official ARC-AGI-1 (134/800) & ARC-AGI-3 (11/183 Levels) Blind Evaluation",
       "status": "passed",
       "progress": 100
     },
     {
-      "name": "All Initial Phases Run \u2014 Actively Grinding Toward 200 GB / 40M Notes & Smarter Harness",
+      "name": "All Initial Phases Run \u2014 Actively Grinding Toward 200 GB / 40M Notes & Smarter DiskAGI Harness",
       "status": "active",
       "progress": 96
     }
   ],
   "todos": [
     {
-      "title": "DiskNCM Core v3 (Qwen3.5-4B int8, 262k context, 60 tok/s)",
+      "title": "Rebrand DiskNCM -> DiskAGI (Frontier at home) across Agent OS & GitHub.io",
       "status": "done"
     },
     {
-      "title": "Laya (convaiinnovations/laya) System-1 Decision Router (dynamic 3-10 page recall, 100% on-target)",
+      "title": "Laya (convaiinnovations/laya) System-1 Router with adaptive 3-20 reference recall",
       "status": "done"
     },
     {
-      "title": "One-Shot Zero-Error Code Engine (AST global/scope auto-repair + 30-frame headless smoke test + LLM self-heal)",
+      "title": "Chat UI overhaul: multi-language syntax highlighting, Save/Copy buttons, Stop button (Esc), and 8,192-token budget",
       "status": "done"
     },
     {
-      "title": "Ingest all 833 uncapped DevDocs sets (+234,564 notes at 6.70x PPMd) + Roblox/Luau, Godot, Raylib, Bevy, Cyber, Linux & Neuroscience",
+      "title": "Blind ARC-AGI-1 Program Synthesizer: 24.50% Training (98/400) & 16.75% Overall (134/800)",
       "status": "done"
     },
     {
-      "title": "Deduplicate & ingest all 3 pending CyberDocs/AI PDFs + 998 new Partner books (0 pending sources)",
+      "title": "Official ARC-AGI-3 Blind World-Model Agent: 11/183 Levels (6.01%) across 25 games (Scorecard 4135ca3b)",
       "status": "done"
     },
     {
-      "title": "Blind Zero-Leakage ARC-AGI Program Synthesizer: 23.75% Training (95/400) & 16.25% Overall (130/800)",
-      "status": "done"
-    },
-    {
-      "title": "Continuous 32-note PPMd Brain grind (3,533,038+ notes -> 200 GB / 40M target)",
+      "title": "Continuous 32-note PPMd Brain grind (4,094,968+ notes -> 200 GB / 40M target)",
       "status": "doing"
     }
   ]

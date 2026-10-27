@@ -8,6 +8,8 @@
   const updated = document.getElementById("status-updated");
   const scoresCard = document.getElementById("scores-card");
   const scoreList = document.getElementById("score-list");
+  const lbCard = document.getElementById("leaderboard-card");
+  const lbList = document.getElementById("leaderboard-list");
 
   const PHASE_LABEL = { active: "In progress", review: "In review", stopped: "Stopped", passed: "Complete", pending: "" };
   const TODO_LABEL = { todo: "To do", doing: "Doing", done: "Done", blocked: "Blocked" };
@@ -96,10 +98,41 @@
       })
     );
   }
+  function renderLeaderboard(rows) {
+    if (!lbCard || !lbList) return;
+    lbCard.hidden = !Array.isArray(rows) || rows.length === 0;
+    if (lbCard.hidden) return;
+    lbList.replaceChildren(
+      ...rows.map((r) => {
+        const tr = el("tr", r.highlight ? "score-row score-row--highlight" : "score-row");
+        tr.append(
+          el("td", "score-base", String(r.rank ?? "")),
+          el("td", "score-name", r.model || ""),
+          el("td", "score-evidence", r.config || "")
+        );
+        const tdScore = el("td", "score-full");
+        tdScore.append(el("span", r.highlight ? "chip chip--doing" : "chip chip--done", r.score || ""));
+        const tdNote = el("td", "score-evidence");
+        if (r.url) {
+          const a = el("a", "", r.note || r.url);
+          a.href = r.url;
+          a.target = "_blank";
+          a.rel = "noopener noreferrer";
+          tdNote.append(a);
+        } else {
+          tdNote.textContent = r.note || "";
+        }
+        tr.append(tdScore, tdNote);
+        return tr;
+      })
+    );
+  }
+
 
   function render(status) {
     renderPhases(Array.isArray(status.phases) ? status.phases : [], Number(status.current));
     renderScores(status.scores);
+    renderLeaderboard(status.arc_agi_3_leaderboard);
     renderTodos(status.todos);
     const when = new Date(status.updated);
     updated.textContent = Number.isNaN(when.getTime()) ? "" : `Updated ${when.toLocaleString()}`;
