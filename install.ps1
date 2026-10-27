@@ -1,31 +1,13 @@
-# DiskAGI (`dagi`) — Frontier at home · OMP Harness Installer (Windows PowerShell)
-# Usage (PowerShell):
-#   irm https://bryonhigbee.github.io/install.ps1 | iex
+# DiskAGI Standalone MCP + Vision/Video + Local->Cloud Failover Auto-Setup (Windows PowerShell)
 $ErrorActionPreference = "Stop"
-
-$InstallDir = Join-Path $HOME ".local\bin"
-$ShareDir = Join-Path $HOME ".local\share\diskagi"
-$ConfigDir = Join-Path $HOME ".config\diskagi"
-
-New-Item -ItemType Directory -Force -Path $InstallDir, $ShareDir, $ConfigDir | Out-Null
-
-$ScriptPath = Join-Path $ShareDir "dagi.py"
-Invoke-WebRequest -Uri "https://bryonhigbee.github.io/dagi.py" -OutFile $ScriptPath -UseBasicParsing
-
-$CmdWrapper = @"
-@echo off
-python "%USERPROFILE%\.local\share\diskagi\dagi.py" %*
-"@
-Set-Content -Path (Join-Path $InstallDir "dagi.cmd") -Value $CmdWrapper -Encoding ASCII
-Set-Content -Path (Join-Path $InstallDir "diskagi.cmd") -Value $CmdWrapper -Encoding ASCII
-
-$UserPath = [Environment]::GetEnvironmentVariable("Path", "User")
-if ($UserPath -notlike "*$InstallDir*") {
-    [Environment]::SetEnvironmentVariable("Path", "$UserPath;$InstallDir", "User")
-    $env:Path = "$env:Path;$InstallDir"
+$ShareDir = Join-Path $env:LOCALAPPDATA "DiskAGI-MCP"
+New-Item -ItemType Directory -Force -Path $ShareDir | Out-Null
+$ScriptDir = Split-Path -Parent $MyInvocation.MyCommand.Path
+if ($ScriptDir -and (Test-Path (Join-Path $ScriptDir "diskagi_mcp_standalone.py"))) {
+    Copy-Item (Join-Path $ScriptDir "diskagi_mcp_standalone.py") (Join-Path $ShareDir "diskagi_mcp_standalone.py") -Force
+    Copy-Item (Join-Path $ScriptDir "setup_harnesses.py") (Join-Path $ShareDir "setup_harnesses.py") -Force
+} else {
+    Invoke-WebRequest -Uri "https://bryonhigbee.github.io/releases/diskagi_mcp_standalone.py" -OutFile (Join-Path $ShareDir "diskagi_mcp_standalone.py") -UseBasicParsing
+    Invoke-WebRequest -Uri "https://bryonhigbee.github.io/releases/setup_harnesses.py" -OutFile (Join-Path $ShareDir "setup_harnesses.py") -UseBasicParsing
 }
-
-Write-Host "✓ Installed DiskAGI OMP Harness (`dagi`) to $InstallDir\dagi.cmd" -ForegroundColor Cyan
-Write-Host "  Run: dagi            (interactive OMP TUI with 20-Slot Shared Brain)" -ForegroundColor Cyan
-Write-Host "       dagi --help     (all OMP flags & subcommands)"
-Write-Host "       dagi doctor     (verify Brain, OMP roles, models & endpoints)"
+python (Join-Path $ShareDir "setup_harnesses.py")
