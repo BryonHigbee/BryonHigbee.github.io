@@ -1,7 +1,7 @@
 {
   "project": "DiskNCM",
-  "updated": "2026-10-27T02:35:00+00:00",
-  "current": 9,
+  "updated": "2026-10-27T02:48:00+00:00",
+  "current": 10,
   "phases": [
     {
       "name": "Baseline (NCM + local core)",
@@ -9,7 +9,7 @@
       "progress": 100
     },
     {
-      "name": "Hippocampal Brain (books & Ultra-7z \u2014 continuous)",
+      "name": "Hippocampal Brain (books & PPMd \u2014 continuous)",
       "status": "active",
       "progress": 100
     },
@@ -52,6 +52,11 @@
       "name": "Live AGI Scoreboard (ARC-AGI-2/3 & Knowledge)",
       "status": "passed",
       "progress": 100
+    },
+    {
+      "name": "All Initial Phases Run \u2014 Making Harness & Brain Way Better and Smarter",
+      "status": "active",
+      "progress": 95
     }
   ],
   "todos": [
@@ -104,11 +109,15 @@
       "status": "done"
     },
     {
-      "title": "Live AGI & Frontier Knowledge Scoreboard (2.15M+ Brain notes)",
+      "title": "Live AGI & Frontier Knowledge Scoreboard (9/9 = 100% vs 44.4% base)",
       "status": "done"
     },
     {
-      "title": "Continuous 32-note PPMd Brain expansion (2.15M+ notes -> 200 GB target)",
+      "title": "Ingest all 844 DevDocs sets (incl. 839 disabled) + zero-error Python verifier",
+      "status": "doing"
+    },
+    {
+      "title": "Continuous 32-note PPMd Brain expansion (2.17M+ notes -> 200 GB target)",
       "status": "doing"
     }
   ]
