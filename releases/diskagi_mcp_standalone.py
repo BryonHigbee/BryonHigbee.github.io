@@ -58,7 +58,7 @@ _FILLER_Q_WORDS = {
 _GENERIC_TITLE_WORDS = {
     "the", "and", "for", "with", "programming", "language", "documentation", "reference",
     "manual", "guide", "tutorial", "standard", "library", "complete", "official", "dataset",
-    "encyclopedia", "science", "medicine", "music", "gamedev", "cybersecurity",
+    "encyclopedia", "science", "medicine", "music", "gamedev",
 }
 
 _CATEGORY_ROUTES = (
@@ -76,8 +76,8 @@ _CATEGORY_ROUTES = (
      ("SQLite Documentation%", "DevDocs: SQLite%", "DevDocs: PostgreSQL%", "Dataset: Yale Spider%", "Dataset: SQL Create-Context%")),
     ("Git & DevOps", re.compile(r"\b(git|commit|branch|merge|rebase|docker|container|dockerfile|compose|nginx|hugo|terraform|ansible|kubernetes)\b", re.I),
      ("Git Documentation%", "Docker Documentation%", "Hugo Static Site%", "DevDocs: Git%", "DevDocs: Docker%", "DevDocs: nginx%", "DevDocs: Terraform%", "DevDocs: Ansible%")),
-    ("Security, AppSec & CVE Remediation", re.compile(r"\b(security|cybersecurity|owasp|xss|csrf|sqli|sql injection|ssrf|rce|injection|auth|jwt|crypto|hash|password|exploit|vulnerability|cve|cisa|pentest\w*|privilege escalation|reverse engineering|tls|firewall|sanitize|escaping)\b", re.I),
-     ("OWASP%", "Cybersecurity:%", "Linux:%")),
+    ("Security, AppSec & CVE Remediation", re.compile(r"\b(security|cybersecurity|owasp|wstg|mastg|asvs|xss|csrf|sqli|sql injection|ssrf|rce|xxe|ssti|lfi|rfi|idor|injection|auth|jwt|oauth|crypto|hash|password|exploit\w*|vulnerability|cve|cve-\d{4}-\d+|cwe|cwe-\d+|capec|cisa|pentest\w*|red team|blue team|mitre|att&ck|t1\d{3}|atomic red|gtfobins|lolbas|wadcoms|peass|linpeas|winpeas|privesc|privilege escalation|suid|kerberoast\w*|dcsync|bloodhound|impacket|rubeus|mimikatz|certipy|active directory|nuclei|sigma|yara|siem|dfir|incident response|forensic\w*|threat hunt\w*|chainsaw|evtx|sysmon|auditd|harden\w*|ransomware|malware|webshell|reverse engineering|tls|firewall|sanitize|escaping)\b", re.I),
+     ("OWASP%", "Cybersecurity%", "Linux:%")),
     ("Neuroscience, Brain & Biomedical Science", re.compile(r"\b(neuron\w*|synap\w*|cortex|cortical|hippocamp\w*|neuroscience|brain|cognitive|axon|dendrite|plasticity|dopamine|serotonin|glutamate|gaba|prefrontal|amygdala|cerebell\w*|thalam\w*|glial|myelin|action potential|eeg|fmri)\b", re.I),
      ("Neuroscience:%", "Medicine: PubMed%", "Science: ArXiv%", "Encyclopedia: Wikipedia%")),
     ("AI, Deep Learning & Data Science", re.compile(r"\b(machine learning|deep learning|neural network\w*|transformer\w*|attention|llm|training|regression|classification|clustering|scikit|sklearn|pytorch|tensor\w*|gradient|backprop\w*|cnn|rnn|lstm|diffusion|reinforcement learning|matplotlib|numpy|pandas|llava|moondream|vlm)\b", re.I),
@@ -105,8 +105,8 @@ _CONCEPT_EXPANSIONS = (
      ("pygame", "draw", "rect", "circle", "font", "clock", "display", "surface", "math", "sin", "cos")),
     (re.compile(r"\b(synap\w*|plasticity|dopamine|cortex|prefrontal|hippocamp\w*|neuron\w*|neuroscience)\b", re.I),
      ("synaptic", "plasticity", "dopamine", "cortex", "hippocampus", "neuron", "brain", "memory", "receptor")),
-    (re.compile(r"\b(sql injection|sqli|xss|owasp|csrf|open ports?|ss|netstat|journalctl|firewall)\b", re.I),
-     ("injection", "xss", "parameterized", "prepared", "owasp", "socket", "port", "systemd", "journalctl")),
+    (re.compile(r"\b(sql injection|sqli|xss|owasp|csrf|open ports?|ss|netstat|journalctl|firewall|mitre|att&ck|sigma|yara|gtfobins|lolbas|nuclei|dfir|incident response|kerberoast\w*|active directory|privesc|privilege escalation|harden\w*)\b", re.I),
+     ("injection", "xss", "parameterized", "prepared", "owasp", "socket", "port", "systemd", "journalctl", "mitre", "sigma", "yara", "gtfobins", "lolbas", "nuclei", "incident", "hardening")),
     (re.compile(r"\b(vision|video|image|camera|frame|llava|moondream|multimodal|vlm|watch)\b", re.I),
      ("vision", "video", "frame", "llava", "moondream", "clip", "siglip", "encoder", "projector")),
 )
