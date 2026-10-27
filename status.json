@@ -1,6 +1,6 @@
 {
   "project": "DiskAGI",
-  "updated": "2026-10-27T05:02:00+00:00",
+  "updated": "2026-10-27T05:15:00+00:00",
   "current": 10,
   "scores": [
     {
@@ -36,7 +36,7 @@
     {
       "benchmark": "6. Live Compressed Brain Corpus (SimHash Dedup + 32-Note Lossless PPMd)",
       "base": "0 notes (stateless 4B)",
-      "harness": "4,094,968+ notes (15.8 GB compressed / ~58 GB raw, 0 pending)",
+      "harness": "4,178,723+ notes (16.1 GB compressed / ~60 GB raw, 0 pending)",
       "evidence": "Measured live in .diskncm/{index.sqlite,bodies.sqlite} (grinding toward 200 GB / 40M target)"
     }
   ],
@@ -200,7 +200,7 @@
       "status": "done"
     },
     {
-      "title": "Continuous 32-note PPMd Brain grind (4,094,968+ notes -> 200 GB / 40M target)",
+      "title": "Continuous 32-note PPMd Brain grind (4,178,723+ notes -> 200 GB / 40M target)",
       "status": "doing"
     }
   ]
