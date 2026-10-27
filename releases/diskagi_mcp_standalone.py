@@ -179,10 +179,18 @@ def _read_note_body(root: Path, nid: int, rel_path: str) -> str:
     if bdb.is_file():
         try:
             con = sqlite3.connect(f"file:{bdb}?mode=ro", uri=True, timeout=5.0)
-            row = con.execute(
-                "SELECT block_id, ofs, size, zbody FROM note_bodies WHERE id = ? OR path = ? LIMIT 1",
-                (nid, rel_path),
-            ).fetchone()
+            srow = None
+            try:
+                srow = con.execute("SELECT block_id, ofs, size FROM note_spans WHERE id = ? LIMIT 1", (nid,)).fetchone()
+            except sqlite3.OperationalError:
+                srow = None
+            if srow:
+                row = (srow[0], srow[1], srow[2], None)
+            else:
+                row = con.execute(
+                    "SELECT block_id, ofs, size, zbody FROM note_bodies WHERE id = ? OR path = ? LIMIT 1",
+                    (nid, rel_path),
+                ).fetchone()
             if row:
                 bid, ofs, sz, zb = row
                 if zb:
@@ -549,6 +557,52 @@ def tool_vision_watch_video(video_path: str, question: str = "Describe what happ
     }, indent=2)
 
 
+
+_NOTE_NAMES = ("C", "C#", "D", "D#", "E", "F", "F#", "G", "G#", "A", "A#", "B")
+
+
+def tool_audio_inspect_file(audio_path: str, question: str = "Analyze this audio file.") -> str:
+    import array
+    p = Path(audio_path).expanduser().resolve()
+    if not p.is_file():
+        return json.dumps({"ok": False, "error": f"Audio file not found: {p}"})
+    sr = 16000
+    proc = subprocess.run(
+        ["ffmpeg", "-v", "error", "-i", str(p), "-ac", "1", "-ar", str(sr), "-f", "s16le", "-"],
+        capture_output=True, timeout=45, check=True,
+    )
+    samples = array.array("h")
+    samples.frombytes(proc.stdout[: (len(proc.stdout) // 2) * 2])
+    n_samp = len(samples) or 1
+    dur_s = round(n_samp / sr, 2)
+    peak = max((abs(x) for x in samples), default=1) or 1
+    rms = math.sqrt(sum(float(x) * float(x) for x in samples) / n_samp) or 1.0
+    n_win = min(8, max(1, int(dur_s * 2)))
+    win_len = max(1, n_samp // n_win)
+    contour: list[str] = []
+    windows = []
+    for wi in range(n_win):
+        seg = samples[wi * win_len : (wi + 1) * win_len]
+        if not seg:
+            continue
+        zc = sum(1 for i in range(1, len(seg)) if (seg[i - 1] < 0 <= seg[i]) or (seg[i - 1] >= 0 > seg[i]))
+        freq_hz = round((zc * sr) / (2.0 * len(seg)), 1)
+        midi = int(round(69 + 12 * math.log2(max(20.0, freq_hz) / 440.0))) if freq_hz >= 20.0 else 0
+        note_nm = f"{_NOTE_NAMES[midi % 12]}{(midi // 12) - 1}" if freq_hz >= 20.0 else "silence"
+        if not contour or contour[-1] != note_nm:
+            contour.append(note_nm)
+        windows.append({"window": wi + 1, "freq_hz": freq_hz, "note": note_nm})
+    return json.dumps({
+        "ok": True,
+        "audio_path": str(p),
+        "question": question,
+        "duration_s": dur_s,
+        "rms_dbfs": round(20.0 * math.log10(rms / 32768.0), 1),
+        "peak_dbfs": round(20.0 * math.log10(peak / 32768.0), 1),
+        "melody_contour": contour,
+        "windows": windows,
+    }, indent=2)
+
 # ── Minimal Zero-Dependency MCP JSON-RPC 2.0 `stdio` Server Loop ─────────────
 MCP_TOOLS = [
     {
@@ -598,6 +652,18 @@ MCP_TOOLS = [
             "required": ["video_path"],
         },
     },
+    {
+        "name": "audio_inspect_file",
+        "description": "Pure-CPU Universal Audio & Music Bridge for ANY Model: decodes `.wav`, `.mp3`, `.flac`, `.ogg`, `.m4a` via ffmpeg and returns duration, RMS/peak dBFS, dominant frequencies (Hz), and musical note contour (`C4`, `E4`, `G4`, etc.).",
+        "inputSchema": {
+            "type": "object",
+            "properties": {
+                "audio_path": {"type": "string"},
+                "question": {"type": "string", "default": "Analyze this audio file."},
+            },
+            "required": ["audio_path"],
+        },
+    },
 ]
 
 
@@ -645,6 +711,8 @@ def _handle_rpc(msg: dict[str, Any]) -> dict[str, Any] | None:
                 txt = tool_vision_inspect_image(str(targs.get("image_path", "")), str(targs.get("question", "Describe this image.")))
             elif tname == "vision_watch_video":
                 txt = tool_vision_watch_video(str(targs.get("video_path", "")), str(targs.get("question", "Describe this video.")), int(targs.get("num_frames", 6)))
+            elif tname == "audio_inspect_file":
+                txt = tool_audio_inspect_file(str(targs.get("audio_path", "")), str(targs.get("question", "Analyze this audio file.")))
             else:
                 txt = f"Unknown tool: {tname}"
             return {"jsonrpc": "2.0", "id": req_id, "result": {"content": [{"type": "text", "text": txt}]}}
