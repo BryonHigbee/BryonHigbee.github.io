@@ -111,6 +111,27 @@ main { flex: 1; width: 100%; }
 }
 .card[hidden] { display: none; }
 .board:has(.card[hidden]) { grid-template-columns: minmax(0, 640px); justify-content: center; }
+.scores-card { margin-bottom: 24px; }
+.scores-table-wrap { overflow-x: auto; }
+.scores-table { width: 100%; border-collapse: collapse; font-size: 15px; }
+.scores-table th, .scores-table td {
+  text-align: left;
+  padding: 12px 14px;
+  border-bottom: 1px solid rgba(120, 170, 255, 0.12);
+  vertical-align: middle;
+}
+.scores-table th {
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--muted);
+}
+.scores-table tr:last-child td { border-bottom: 0; }
+.score-name { font-weight: 600; color: var(--fg); }
+.score-base { color: var(--muted); font-variant-numeric: tabular-nums; }
+.score-full { font-variant-numeric: tabular-nums; }
+.score-evidence { font-size: 13px; color: var(--muted); }
 h2 {
   margin: 0 0 20px;
   font-size: 13px;

@@ -6,6 +6,8 @@
   const todoCard = document.getElementById("todo-card");
   const todoList = document.getElementById("todo-list");
   const updated = document.getElementById("status-updated");
+  const scoresCard = document.getElementById("scores-card");
+  const scoreList = document.getElementById("score-list");
 
   const PHASE_LABEL = { active: "In progress", review: "In review", stopped: "Stopped", passed: "Complete", pending: "" };
   const TODO_LABEL = { todo: "To do", doing: "Doing", done: "Done", blocked: "Blocked" };
@@ -77,8 +79,27 @@
     );
   }
 
+  function renderScores(scores) {
+    if (!scoresCard || !scoreList) return;
+    scoresCard.hidden = !Array.isArray(scores) || scores.length === 0;
+    if (scoresCard.hidden) return;
+    scoreList.replaceChildren(
+      ...scores.map((s) => {
+        const tr = el("tr", "score-row");
+        const tdName = el("td", "score-name", s.benchmark || "");
+        const tdBase = el("td", "score-base", s.base || "");
+        const tdFull = el("td", "score-full");
+        tdFull.append(el("span", "chip chip--doing", s.harness || ""));
+        const tdEv = el("td", "score-evidence", s.evidence || "");
+        tr.append(tdName, tdBase, tdFull, tdEv);
+        return tr;
+      })
+    );
+  }
+
   function render(status) {
     renderPhases(Array.isArray(status.phases) ? status.phases : [], Number(status.current));
+    renderScores(status.scores);
     renderTodos(status.todos);
     const when = new Date(status.updated);
     updated.textContent = Number.isNaN(when.getTime()) ? "" : `Updated ${when.toLocaleString()}`;
