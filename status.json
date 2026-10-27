@@ -1,6 +1,6 @@
 {
   "project": "DiskAGI",
-  "updated": "2026-10-27T05:31:00+00:00",
+  "updated": "2026-10-27T05:40:00+00:00",
   "current": 10,
   "scores": [
     {
@@ -12,8 +12,8 @@
     {
       "benchmark": "2. Official ARC-AGI-3 Interactive Benchmark (25 Unseen Games, 183 Levels, 0 Pre-Loaded Rules)",
       "base": "0.00% (0 / 183 levels)",
-      "harness": "1.84% Official Weighted Scorecard \u00b7 7.10% Levels (13 / 183 across 12/25 games)",
-      "evidence": "Official ARC Prize Scorecard fbad4e76-44b3-4c82-9d9d-0f719b754969 (python -m benchmarks.arc_agi_3_agent)"
+      "harness": "2.54% Official Weighted Scorecard \u00b7 8.20% Levels (15 / 183 across 11/25 games)",
+      "evidence": "Official ARC Prize Scorecard 247b4bee-6f81-4528-bf6f-eac53083a283 (python -m benchmarks.arc_agi_3_agent)"
     },
     {
       "benchmark": "3. Closed-Book Brain Recall (60 Held-Out Reference & Book Questions)",
@@ -36,7 +36,7 @@
     {
       "benchmark": "6. Live Compressed Brain Corpus (SimHash Dedup + 32-Note Lossless PPMd)",
       "base": "0 notes (stateless 4B)",
-      "harness": "4,341,171+ notes (16.4 GB compressed / ~61 GB raw, 0 pending)",
+      "harness": "4,389,240+ notes (17.2 GB compressed / ~64 GB raw, 0 pending)",
       "evidence": "Measured live in .diskncm/{index.sqlite,bodies.sqlite} (grinding toward 200 GB / 40M target)"
     }
   ],
@@ -80,9 +80,9 @@
       "rank": "\u2605 Private",
       "model": "DiskAGI \u2014 Frontier at home (Local 4B)",
       "config": "Local RTX 3060 \u00b7 Qwen3.5-4B + Laya + Blind World-Model BFS",
-      "score": "1.84% Official Weighted \u00b7 7.10% Levels (13/183)",
-      "note": "Official ARC Prize Scorecard fbad4e76-44b3-4c82-9d9d-0f719b754969 (beats Grok 4.7 XHigh 1.80% & Claude Opus 4.8 1.50%)",
-      "url": "https://arcprize.org/scorecards/fbad4e76-44b3-4c82-9d9d-0f719b754969",
+      "score": "2.54% Official Weighted \u00b7 8.20% Levels (15/183)",
+      "note": "Official ARC Prize Scorecard 247b4bee-6f81-4528-bf6f-eac53083a283 (beats GPT-5.6 Sol High 2.10%, Grok 4.6/4.7 XHigh & Claude Opus 4.8)",
+      "url": "https://arcprize.org/scorecards/247b4bee-6f81-4528-bf6f-eac53083a283",
       "highlight": true
     },
     {
@@ -168,7 +168,7 @@
       "progress": 100
     },
     {
-      "name": "Phase 9 \u2014 Official ARC-AGI-1 (134/800) & ARC-AGI-3 (11/183 Levels) Blind Evaluation",
+      "name": "Phase 9 \u2014 Official ARC-AGI-1 (134/800) & ARC-AGI-3 (2.54% Official / 15 Levels) Blind Evaluation",
       "status": "passed",
       "progress": 100
     },
@@ -196,11 +196,11 @@
       "status": "done"
     },
     {
-      "title": "Official ARC-AGI-3 Blind World-Model Agent: 1.84% Official Weighted / 7.10% Levels (Scorecard fbad4e76)",
+      "title": "Official ARC-AGI-3 Blind World-Model Agent: 2.54% Official Weighted / 8.20% Levels (Scorecard 247b4bee)",
       "status": "done"
     },
     {
-      "title": "Continuous 32-note PPMd Brain grind (4,341,171+ notes -> 200 GB / 40M target)",
+      "title": "Continuous 32-note PPMd Brain grind (4,389,240+ notes -> 200 GB / 40M target)",
       "status": "doing"
     }
   ]
