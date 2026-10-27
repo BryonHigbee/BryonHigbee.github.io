@@ -1,34 +1,31 @@
-# DiskAGI (`dagi`) — Frontier at home · Windows PowerShell One-Line Installer
+# DiskAGI (`dagi`) — Frontier at home · OMP Harness Installer (Windows PowerShell)
 # Usage (PowerShell):
 #   irm https://bryonhigbee.github.io/install.ps1 | iex
 $ErrorActionPreference = "Stop"
 
 $InstallDir = Join-Path $HOME ".local\bin"
-$ShareDir   = Join-Path $HOME ".local\share\diskagi"
-$ConfigDir  = Join-Path $HOME ".config\diskagi"
-$RemoteBase = if ($env:DISKAGI_DIST_URL) { $env:DISKAGI_DIST_URL } else { "https://bryonhigbee.github.io" }
+$ShareDir = Join-Path $HOME ".local\share\diskagi"
+$ConfigDir = Join-Path $HOME ".config\diskagi"
 
-New-Item -ItemType Directory -Force -Path $InstallDir | Out-Null
-New-Item -ItemType Directory -Force -Path $ShareDir   | Out-Null
-New-Item -ItemType Directory -Force -Path $ConfigDir  | Out-Null
+New-Item -ItemType Directory -Force -Path $InstallDir, $ShareDir, $ConfigDir | Out-Null
 
-$ScriptDest = Join-Path $ShareDir "dagi.py"
-Write-Host "[dagi] Downloading DiskAGI CLI from $RemoteBase/dagi.py ..." -ForegroundColor Cyan
-Invoke-WebRequest -UseBasicParsing -Uri "$RemoteBase/dagi.py" -OutFile $ScriptDest
+$ScriptPath = Join-Path $ShareDir "dagi.py"
+Invoke-WebRequest -Uri "https://bryonhigbee.github.io/dagi.py" -OutFile $ScriptPath -UseBasicParsing
 
-# Create Windows batch & PowerShell shims (`dagi.cmd` and `diskagi.cmd`)
-$CmdShim = "@echo off`r`npython `"$ScriptDest`" %*`r`n"
-Set-Content -Path (Join-Path $InstallDir "dagi.cmd")    -Value $CmdShim -Encoding ASCII
-Set-Content -Path (Join-Path $InstallDir "diskagi.cmd") -Value $CmdShim -Encoding ASCII
+$CmdWrapper = @"
+@echo off
+python "%USERPROFILE%\.local\share\diskagi\dagi.py" %*
+"@
+Set-Content -Path (Join-Path $InstallDir "dagi.cmd") -Value $CmdWrapper -Encoding ASCII
+Set-Content -Path (Join-Path $InstallDir "diskagi.cmd") -Value $CmdWrapper -Encoding ASCII
 
-# Ensure ~/.local/bin is on user PATH
 $UserPath = [Environment]::GetEnvironmentVariable("Path", "User")
 if ($UserPath -notlike "*$InstallDir*") {
     [Environment]::SetEnvironmentVariable("Path", "$UserPath;$InstallDir", "User")
     $env:Path = "$env:Path;$InstallDir"
 }
 
-Write-Host "✓ Installed DiskAGI CLI (`dagi` and `diskagi`) to $InstallDir" -ForegroundColor Green
-Write-Host "  Run: dagi          (interactive Blue Claude-Code TUI)" -ForegroundColor Cyan
-Write-Host "       dagi --help   (all subcommands)"
-Write-Host "       dagi doctor   (verify Brain, models & endpoints)"
+Write-Host "✓ Installed DiskAGI OMP Harness (`dagi`) to $InstallDir\dagi.cmd" -ForegroundColor Cyan
+Write-Host "  Run: dagi            (interactive OMP TUI with 20-Slot Shared Brain)" -ForegroundColor Cyan
+Write-Host "       dagi --help     (all OMP flags & subcommands)"
+Write-Host "       dagi doctor     (verify Brain, OMP roles, models & endpoints)"
