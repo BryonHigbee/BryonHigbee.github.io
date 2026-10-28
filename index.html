@@ -3,73 +3,66 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>DiskAGI — Frontier at home</title>
-<meta name="description" content="DiskAGI — Frontier at home. A private local AGI project: a 10M+ note compressed Brain, universal MCP plugin and blind benchmark harness.">
+<title>DiskAGI</title>
+<meta name="description" content="DiskAGI — a private local AGI project built around a compressed, deduplicated knowledge Brain.">
 <meta name="robots" content="noindex">
-<meta property="og:title" content="DiskAGI — Frontier at home">
-<meta property="og:description" content="Frontier at home. A private local AGI project.">
+<meta property="og:title" content="DiskAGI">
+<meta property="og:description" content="A private local AGI project.">
 <meta property="og:image" content="https://bryonhigbee.github.io/assets/og.png">
-<meta name="theme-color" content="#050b18">
+<meta name="theme-color" content="#0a0b0d">
 <link rel="icon" type="image/svg+xml" href="assets/diskncm-favicon.svg">
 <link rel="icon" type="image/png" sizes="32x32" href="assets/favicon-32.png">
 <link rel="apple-touch-icon" href="assets/apple-touch-icon.png">
-<link rel="stylesheet" href="style.css?v=2">
-<script type="module" src="brain-graph.js?v=2"></script>
+<link rel="stylesheet" href="style.css?v=3">
+<script type="module" src="brain-graph.js?v=7"></script>
 </head>
 <body>
 <header class="site-header">
   <div class="wrap">
-    <a class="brand" href="index.html"><img src="assets/diskncm-mark.svg" width="30" height="30" alt=""><span>DiskAGI</span></a>
+    <a class="brand" href="index.html"><img src="assets/diskncm-mark.svg" width="22" height="22" alt="">DiskAGI</a>
     <nav class="site-nav" aria-label="Sections">
       <a href="#brain">Brain</a>
       <a href="#benchmarks">Benchmarks</a>
       <a href="#leaderboard">Leaderboard</a>
-      <a href="#plugin">Plugin</a>
-      <a href="privacy.html">Privacy</a>
+      <a href="#todos">Status</a>
     </nav>
-    <span class="live-pill" id="nav-pill"><i></i><span id="nav-notes">…</span> notes · live</span>
+    <span class="live-count"><span id="nav-notes">—</span> notes</span>
   </div>
 </header>
 
 <main>
-  <div class="wrap">
-    <section class="hero">
-      <h1><img src="assets/diskncm-logo.svg" width="840" height="236" alt="DiskAGI"></h1>
-      <p class="tagline">Frontier at home</p>
-      <p class="lead">A compressed <strong id="hero-notes">…</strong>&nbsp;note Brain — deduplicated, licensed and growing in the background toward 200&nbsp;GB — powering <strong>any</strong> AI model or agent harness through one universal MCP plugin.</p>
-      <div class="hero-cta">
-        <a class="btn btn--primary" href="#plugin">Install the plugin</a>
-        <a class="btn" href="#brain">Explore the Brain</a>
-      </div>
-      <div class="stat-strip" role="list" aria-label="Live Brain stats">
-        <div class="stat" role="listitem"><b id="stat-notes">…</b><span>Notes</span></div>
-        <div class="stat" role="listitem"><b id="stat-edges">…</b><span>Edges</span></div>
-        <div class="stat" role="listitem"><b id="stat-bytes">…</b><span>Compressed</span></div>
-        <div class="stat" role="listitem"><b id="stat-sources">…</b><span>Sources</span></div>
-      </div>
-    </section>
-  </div>
+  <section class="hero wrap">
+    <h1>DiskAGI</h1>
+    <p class="tagline">Frontier at home.</p>
+    <p class="lead">A private, local AGI project built around a compressed knowledge Brain of <span id="hero-notes">—</span> notes — deduplicated, license-checked and stored losslessly — that a small local model and its harness draw on for every task.</p>
+    <div class="stats" role="list" aria-label="Brain size">
+      <div class="stat" role="listitem"><b id="stat-notes">—</b><span>Notes</span></div>
+      <div class="stat" role="listitem"><b id="stat-edges">—</b><span>Links between notes</span></div>
+      <div class="stat" role="listitem"><b id="stat-bytes">—</b><span>Compressed size</span></div>
+      <div class="stat" role="listitem"><b id="stat-sources">—</b><span>Ingested sources</span></div>
+    </div>
+  </section>
 
-  <section id="brain" class="brain-section wrap">
+  <section id="brain" class="section wrap">
     <div class="brain-head">
       <div>
-        <h2>The Living Brain — 3D Note Graph</h2>
-        <p>Every dot is a real note sampled from the live index, laid out on a folded cortex that keeps research clusters together. Drag to rotate · scroll to zoom · hover a node · click to inspect · search to fly.</p>
+        <h2>The Brain</h2>
+        <p class="section-sub">A live sample of real notes, placed on a folded cortex so related subjects sit together. Signals travel along real links. Drag to rotate, scroll to zoom, hover a note, click to inspect and walk its connections.</p>
       </div>
       <label class="brain-search">
-        <input id="brain-search" type="search" placeholder="Search notes… (Enter to fly)" aria-label="Search brain notes">
+        <input id="brain-search" type="search" placeholder="Search notes" aria-label="Search notes">
       </label>
     </div>
     <div class="brain-stage" id="brain-stage">
       <canvas id="brain-canvas" aria-label="Interactive 3D graph of the DiskAGI Brain"></canvas>
-      <p class="brain-fallback" id="brain-fallback">Loading the Brain…</p>
+      <p class="brain-fallback" id="brain-fallback">Loading…</p>
       <div class="brain-hud">
-        <div class="brain-legend" id="brain-legend" aria-label="Domains (click to toggle)"></div>
+        <div class="brain-legend" id="brain-legend" aria-label="Subjects (click to toggle)"></div>
         <div class="brain-tip" id="brain-tip" aria-hidden="true"></div>
         <aside class="brain-panel" id="brain-panel" aria-live="polite"></aside>
         <div class="brain-controls">
-          <span class="brain-count"><small>Notes replayed</small><span id="brain-count">0</span></span>
-          <input class="brain-scrub" id="brain-scrub" type="range" min="0" max="1000" value="0" step="1" aria-label="Brain growth timeline">
+          <span class="brain-count"><small>Notes shown</small><span id="brain-count">0</span></span>
+          <input class="brain-scrub" id="brain-scrub" type="range" min="0" max="1000" value="0" step="1" aria-label="Growth timeline">
           <button class="brain-replay" id="brain-replay" type="button">Replay growth</button>
           <p class="brain-scale-note" id="brain-scale-note"></p>
         </div>
@@ -77,94 +70,62 @@
     </div>
   </section>
 
-  <div class="wrap">
-    <section class="card scores-card" id="benchmarks" aria-labelledby="scores-title">
-      <h2 id="scores-title">Genuine Blind Benchmark Scores — Base Qwen3.5-4B vs. DiskAGI (4B + Harness + Brain)</h2>
-      <div class="scores-table-wrap">
-        <table class="scores-table">
-          <thead>
-            <tr>
-              <th scope="col">Capability / Benchmark</th>
-              <th scope="col">4B Model Alone</th>
-              <th scope="col">4B + DiskNCM Harness &amp; Brain</th>
-              <th scope="col">Verification Evidence</th>
-            </tr>
-          </thead>
-          <tbody id="score-list"></tbody>
-        </table>
-      </div>
-    </section>
-
-    <section class="card scores-card" id="leaderboard" aria-labelledby="leaderboard-title">
-      <h2 id="leaderboard-title">ARC-AGI-3 Private &amp; Official Leaderboard — DiskAGI (Frontier at home)</h2>
-      <div class="scores-table-wrap">
-        <table class="scores-table">
-          <thead>
-            <tr>
-              <th scope="col">Rank</th>
-              <th scope="col">Agent / Model</th>
-              <th scope="col">Configuration</th>
-              <th scope="col">ARC-AGI-3 Score</th>
-              <th scope="col">Notes / Scorecard Provenance</th>
-            </tr>
-          </thead>
-          <tbody id="leaderboard-list"></tbody>
-        </table>
-      </div>
-    </section>
-
-    <section class="card scores-card" id="plugin" aria-labelledby="plugin-title">
-      <h2 id="plugin-title">Universal MCP Plugin — One-Command Setup for omp, Claude Code, OpenCode, Codex, Cursor, Windsurf &amp; Zed</h2>
-      <p style="margin:0 0 16px;color:var(--muted);font-size:15px;">Works on <strong>Windows &amp; Linux dual-boot</strong> with <strong>any model</strong> (no local GPU model required). Automatic <strong>Local Brain → Cloud Brain failover</strong>, <strong>Laya System-1 + 16-Domain &amp; 844-DevDocs routing</strong>, <strong>20-Slot Human Working Memory</strong> (<code>&lt;1&nbsp;ms</code> follow-ups), and pure-CPU <strong>Vision, Video &amp; Audio Bridges</strong>.</p>
-      <div class="scores-table-wrap">
-        <table class="scores-table">
-          <thead>
-            <tr>
-              <th scope="col">Platform / Package</th>
-              <th scope="col">Direct Download</th>
-              <th scope="col">One-Line Terminal Command</th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr class="score-row">
-              <td class="score-name">Windows 64-Bit Installer (<code>.exe</code>)</td>
-              <td class="score-full"><a href="releases/DiskAGI-MCP-Setup-Windows-x64.exe" download><span class="chip chip--result">DiskAGI-MCP-Setup-Windows-x64.exe</span></a></td>
-              <td class="score-evidence"><code>irm https://bryonhigbee.github.io/install.ps1 | iex</code> <button class="copy-btn" type="button" data-copy="irm https://bryonhigbee.github.io/install.ps1 | iex">Copy</button></td>
-            </tr>
-            <tr class="score-row">
-              <td class="score-name">Linux x86_64 AppImage (<code>.AppImage</code>)</td>
-              <td class="score-full"><a href="releases/DiskAGI-MCP-Setup-x86_64.AppImage" download><span class="chip chip--result">DiskAGI-MCP-Setup-x86_64.AppImage</span></a></td>
-              <td class="score-evidence"><code>curl -fsSL https://bryonhigbee.github.io/install.sh | sh</code> <button class="copy-btn" type="button" data-copy="curl -fsSL https://bryonhigbee.github.io/install.sh | sh">Copy</button></td>
-            </tr>
-            <tr class="score-row">
-              <td class="score-name">Complete Portable Source Bundle (<code>.zip</code>)</td>
-              <td class="score-full"><a href="releases/diskagi-mcp-sources.zip" download><span class="chip chip--done">diskagi-mcp-sources.zip</span></a></td>
-              <td class="score-evidence">Includes <code>diskagi_mcp_standalone.py</code>, <code>setup_harnesses.py</code>, C launchers &amp; build script</td>
-            </tr>
-          </tbody>
-        </table>
-      </div>
-    </section>
-
-    <div class="board">
-      <section class="card" id="todo-card" aria-labelledby="todos-title">
-        <h2 id="todos-title">Current to-dos</h2>
-        <ul id="todo-list" class="todo-list"></ul>
-      </section>
+  <section id="benchmarks" class="section wrap" aria-labelledby="scores-title">
+    <h2 id="scores-title">Benchmarks</h2>
+    <p class="section-sub">Blind evaluations of the base Qwen3.5-4B model against the same model with the DiskNCM harness and Brain.</p>
+    <div class="table-wrap">
+      <table class="data-table">
+        <thead>
+          <tr>
+            <th scope="col">Benchmark</th>
+            <th scope="col">4B model alone</th>
+            <th scope="col">4B + harness &amp; Brain</th>
+            <th scope="col">Evidence</th>
+          </tr>
+        </thead>
+        <tbody id="score-list"></tbody>
+      </table>
     </div>
-    <p id="status-updated" class="status-updated"></p>
-  </div>
+  </section>
+
+  <section id="leaderboard" class="section wrap" aria-labelledby="leaderboard-title">
+    <h2 id="leaderboard-title">ARC-AGI-3 leaderboard</h2>
+    <p class="section-sub">DiskAGI's official scorecard alongside published frontier-model results.</p>
+    <div class="table-wrap">
+      <table class="data-table">
+        <thead>
+          <tr>
+            <th scope="col">Rank</th>
+            <th scope="col">Agent / model</th>
+            <th scope="col">Configuration</th>
+            <th scope="col">Score</th>
+            <th scope="col">Provenance</th>
+          </tr>
+        </thead>
+        <tbody id="leaderboard-list"></tbody>
+      </table>
+    </div>
+  </section>
+
+  <section id="todos" class="section wrap" aria-labelledby="todos-title">
+    <div id="todo-card">
+      <h2 id="todos-title">Current work</h2>
+      <p class="section-sub">What the project is doing right now.</p>
+      <ul id="todo-list" class="todo-list"></ul>
+    </div>
+  </section>
+  <p id="status-updated" class="status-updated wrap"></p>
 </main>
 
 <footer class="site-footer">
   <div class="wrap">
-    <span>&copy; 2026 Bryon Higbee · DiskAGI — Frontier at home</span>
+    <span>&copy; 2026 Bryon Higbee · DiskAGI</span>
     <nav aria-label="Legal">
-      <a href="privacy.html">Privacy Policy</a>
-      <a href="terms.html">Terms of Service</a>
+      <a href="privacy.html">Privacy</a>
+      <a href="terms.html">Terms</a>
     </nav>
   </div>
 </footer>
-<script src="status.js?v=2" defer></script>
+<script src="status.js?v=3" defer></script>
 </body>
 </html>

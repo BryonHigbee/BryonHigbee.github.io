@@ -22,7 +22,7 @@ const scaleNote = document.getElementById("brain-scale-note");
 
 const domainColor = (i) => {
   const h = (i * 222.5) % 360;
-  return new THREE.Color(`hsl(${h}, ${i === 16 ? 8 : 70}%, ${i === 16 ? 55 : 64}%)`);
+  return new THREE.Color(`hsl(${h}, ${i === 16 ? 6 : 52}%, ${i === 16 ? 64 : 62}%)`);
 };
 
 function spriteTexture() {
@@ -55,9 +55,9 @@ let uniforms = null;
 
 // ---- orbit controls (rotate / zoom / inertia / idle auto-rotate)
 const orbit = {
-  theta: 0.55, phi: 1.22, radius: 7.4, targetRadius: 7.4,
+  theta: 0.55, phi: 1.22, radius: 4.8, targetRadius: 4.8,
   vTheta: 0, vPhi: 0,
-  target: new THREE.Vector3(0, -0.05, 0),
+  target: new THREE.Vector3(0, 0.28, 0),
   flyTo: null,
   lastInput: performance.now(),
 };
@@ -96,7 +96,7 @@ function bindControls() {
     } else if (pointers.size === 2) {
       const pts = [...pointers.values()];
       const d = Math.hypot(pts[0].x - pts[1].x, pts[0].y - pts[1].y);
-      if (pinchDist > 0) orbit.targetRadius = clamp(orbit.targetRadius * (pinchDist / d), 2.1, 16);
+      if (pinchDist > 0) orbit.targetRadius = clamp(orbit.targetRadius * (pinchDist / d), 1.4, 12);
       pinchDist = d;
     }
   });
@@ -116,7 +116,7 @@ function bindControls() {
   canvas.addEventListener("wheel", (e) => {
     e.preventDefault();
     orbit.lastInput = performance.now();
-    orbit.targetRadius = clamp(orbit.targetRadius * Math.exp(e.deltaY * 0.0011), 2.1, 16);
+    orbit.targetRadius = clamp(orbit.targetRadius * Math.exp(e.deltaY * 0.0011), 1.4, 12);
   }, { passive: false });
 }
 
@@ -140,7 +140,7 @@ function buildGraph(data) {
     const c = domains[n[2]] ? domains[n[2]].color : domainColor(16);
     baseColors[i * 3] = c.r; baseColors[i * 3 + 1] = c.g; baseColors[i * 3 + 2] = c.b;
     domainArr[i] = n[2];
-    sizeArr[i] = 2.1 + Math.min(3.4, Math.log2(1 + n[4]) * 0.85);
+    sizeArr[i] = 1.5 + Math.min(2.6, Math.log2(1 + n[4]) * 0.45);
   });
 
   const lpos = new Float32Array(LINKS.length * 6);
@@ -179,7 +179,7 @@ function buildGraph(data) {
     uniforms,
     transparent: true,
     depthWrite: false,
-    blending: THREE.AdditiveBlending,
+    blending: THREE.NormalBlending,
     vertexShader: `
       attribute vec3 aColor;
       attribute float aReveal, aDomain, aSize;
@@ -189,8 +189,8 @@ function buildGraph(data) {
         vKill = step(uProgress, aReveal);
         vColor = aColor;
         vec4 mv = modelViewMatrix * vec4(position, 1.0);
-        float pulse = 1.0 + 0.16 * sin(uTime * 2.0 + position.x * 3.7 + position.y * 5.1);
-        gl_PointSize = aSize * uPixelRatio * pulse * (140.0 / -mv.z);
+        float pulse = 1.0 + 0.08 * sin(uTime * 2.0 + position.x * 3.7 + position.y * 5.1);
+        gl_PointSize = aSize * uPixelRatio * pulse * (12.0 / -mv.z);
         if (vKill > 0.5) gl_PointSize = 0.0;
         gl_Position = projectionMatrix * mv;
       }`,
@@ -199,9 +199,9 @@ function buildGraph(data) {
       varying vec3 vColor; varying float vKill;
       void main() {
         if (vKill > 0.5) discard;
-        vec4 tex = texture2D(uMap, gl_PointCoord);
-        float core = smoothstep(0.0, 0.35, tex.a);
-        gl_FragColor = vec4(vColor * (0.85 + core * 0.9), tex.a * 0.95);
+        float d = length(gl_PointCoord - 0.5);
+        if (d > 0.5) discard;
+        gl_FragColor = vec4(vColor, smoothstep(0.5, 0.34, d) * 0.92);
       }`,
   });
   points = new THREE.Points(geo, mat);
@@ -229,7 +229,7 @@ function buildGraph(data) {
       varying vec3 vColor; varying float vKill;
       void main() {
         if (vKill > 0.5) discard;
-        gl_FragColor = vec4(vColor, mix(0.14, 0.8, uDim));
+        gl_FragColor = vec4(vColor, mix(0.09, 0.025, uDim));
       }`,
   }));
   linkLines.userData.uniforms = luni;
@@ -248,6 +248,15 @@ function buildGraph(data) {
   );
   selLines.visible = false;
   scene.add(selLines);
+
+  hoverLines = new THREE.LineSegments(
+    new THREE.BufferGeometry(),
+    new THREE.LineBasicMaterial({ color: 0xcfdcf5, transparent: true, opacity: 0.45, blending: THREE.AdditiveBlending, depthWrite: false })
+  );
+  hoverLines.visible = false;
+  scene.add(hoverLines);
+
+  if (!reduceMotion && LINKS.length) buildPulses();
 
   buildLegend();
 }
@@ -324,11 +333,13 @@ function setHover(i, e) {
       tip.style.top = clamp(e.clientY - r.top - 14, 8, r.height - 60) + "px";
     }
     hoverSprite.position.set(nodesPos[i * 3], nodesPos[i * 3 + 1], nodesPos[i * 3 + 2]);
-    hoverSprite.scale.setScalar(0.22);
+    hoverSprite.scale.setScalar(0.11);
+    showHoverLinks(i);
     canvas.style.cursor = "pointer";
   } else {
     tip.style.opacity = "0";
     hoverSprite.scale.setScalar(0.0);
+    if (hoverLines) hoverLines.visible = false;
     canvas.style.cursor = "grab";
   }
 }
@@ -338,17 +349,25 @@ function select(i) {
   const n = NODES[i];
   const d = domains[n[2]] || { name: "Other", color: domainColor(16) };
   const linked = adjacency[i].length;
+  const neighborIdx = [...new Set(adjacency[i].map((j) => (LINKS[j][0] === i ? LINKS[j][1] : LINKS[j][0])))].slice(0, 8);
+  const neighborsHtml = neighborIdx.length
+    ? `<div class="neighbors"><h4>Connected notes</h4>${neighborIdx
+        .map((k) => `<button class="neighbor" type="button" data-i="${k}">${escapeHtml(NODES[k][1])}</button>`)
+        .join("")}</div>`
+    : "";
   panel.innerHTML = `
     <button class="brain-panel-close" type="button" aria-label="Close">×</button>
     <span class="brain-panel-domain"><i style="background:#${d.color.getHexString()}"></i>${escapeHtml(d.name)}</span>
     <h3>${escapeHtml(n[1])}</h3>
     <dl>
       <div><dt>Type</dt><dd>${TYPE_NAMES[n[3]] ?? "note"}</dd></div>
-      <div><dt>Connections</dt><dd>${fmt(n[4])} in sample · note #${fmt(n[0])}</dd></div>
-      <div><dt>Live Brain</dt><dd>1 of ${fmt(meta.notes)} notes</dd></div>
-    </dl>`;
+      <div><dt>Links in full Brain</dt><dd>${fmt(n[4])}</dd></div>
+      <div><dt>Links shown here</dt><dd>${fmt(linked)}</dd></div>
+      <div><dt>Note id</dt><dd>${fmt(n[0])}</dd></div>
+    </dl>${neighborsHtml}`;
   panel.classList.add("open");
   panel.querySelector(".brain-panel-close").addEventListener("click", deselect);
+  panel.querySelectorAll(".neighbor").forEach((b) => b.addEventListener("click", () => select(Number(b.dataset.i))));
 
   const g = linkLines.geometry.getAttribute("position");
   const pos = [];
@@ -363,7 +382,7 @@ function select(i) {
   linkLines.userData.uniforms.uDim.value = linked > 0 ? 1 : 0;
   orbit.flyTo = {
     p: new THREE.Vector3(nodesPos[i * 3], nodesPos[i * 3 + 1], nodesPos[i * 3 + 2]),
-    r: Math.min(orbit.targetRadius, 5.2),
+    r: Math.min(orbit.targetRadius, 3.4),
     t0: performance.now(),
     from: orbit.target.clone(),
   };
@@ -374,6 +393,69 @@ function deselect() {
   panel.classList.remove("open");
   selLines.visible = false;
   linkLines.userData.uniforms.uDim.value = 0;
+}
+
+// ---- hover: highlight a note's connections
+let hoverLines = null, hoverBuilt = -1;
+function showHoverLinks(i) {
+  if (!hoverLines) return;
+  if (hoverBuilt !== i) {
+    const g = linkLines.geometry.getAttribute("position");
+    const pos = [];
+    for (const j of adjacency[i]) {
+      pos.push(g.getX(j * 2), g.getY(j * 2), g.getZ(j * 2), g.getX(j * 2 + 1), g.getY(j * 2 + 1), g.getZ(j * 2 + 1));
+    }
+    const hg = new THREE.BufferGeometry();
+    hg.setAttribute("position", new THREE.Float32BufferAttribute(pos, 3));
+    hoverLines.geometry.dispose();
+    hoverLines.geometry = hg;
+    hoverBuilt = i;
+  }
+  hoverLines.visible = adjacency[i].length > 0;
+}
+
+// ---- signal pulses: bright dots travelling along real links (biased to the selected note)
+const PULSES = 70;
+let pulseGeo = null, pulses = [];
+function newPulse(now) {
+  let j;
+  const adj = sel.index >= 0 ? adjacency[sel.index] : null;
+  if (adj && adj.length && Math.random() < 0.6) j = adj[(Math.random() * adj.length) | 0];
+  else j = (Math.random() * LINKS.length) | 0;
+  return { j, t0: now, dur: 700 + Math.random() * 900, fwd: Math.random() < 0.5 };
+}
+function buildPulses() {
+  pulseGeo = new THREE.BufferGeometry();
+  pulseGeo.setAttribute("position", new THREE.BufferAttribute(new Float32Array(PULSES * 3), 3));
+  scene.add(new THREE.Points(pulseGeo, new THREE.PointsMaterial({
+    map: uniforms.uMap.value, size: 0.055, color: 0xe4ecff, transparent: true, opacity: 0.85,
+    blending: THREE.AdditiveBlending, depthWrite: false, sizeAttenuation: true,
+  })));
+  const now = performance.now();
+  pulses = Array.from({ length: PULSES }, () => {
+    const p = newPulse(now);
+    p.t0 -= Math.random() * p.dur;
+    return p;
+  });
+}
+function updatePulses(now) {
+  if (!pulseGeo) return;
+  const pos = pulseGeo.getAttribute("position");
+  const lp = linkLines.geometry.getAttribute("position");
+  const lrev = linkLines.geometry.getAttribute("aReveal");
+  for (let k = 0; k < PULSES; k++) {
+    let p = pulses[k];
+    let t = (now - p.t0) / p.dur;
+    if (t >= 1) { p = pulses[k] = newPulse(now); t = 0; }
+    if (lrev.getX(p.j * 2) > progress) { pos.setXYZ(k, 0, 0, 1e6); continue; } // link not visible yet
+    const a = p.j * 2 + (p.fwd ? 0 : 1), b = p.j * 2 + (p.fwd ? 1 : 0);
+    const e = t * t * (3 - 2 * t);
+    pos.setXYZ(k,
+      lp.getX(a) + (lp.getX(b) - lp.getX(a)) * e,
+      lp.getY(a) + (lp.getY(b) - lp.getY(a)) * e,
+      lp.getZ(a) + (lp.getZ(b) - lp.getZ(a)) * e);
+  }
+  pos.needsUpdate = true;
 }
 
 // ---- search
@@ -434,6 +516,7 @@ function startLoop() {
     if (k >= 1) orbit.flyTo = null;
   }
   uniforms.uTime.value = now / 1000;
+  updatePulses(now);
   applyCamera();
   renderer.render(scene, camera);
   });
@@ -446,7 +529,7 @@ fetch("brain.json", { cache: "no-store" })
     scene = new THREE.Scene();
     camera = new THREE.PerspectiveCamera(46, 1, 0.1, 100);
     renderer = new THREE.WebGLRenderer({ canvas, antialias: true, alpha: false, powerPreference: "high-performance" });
-    renderer.setClearColor(0x050b18, 1);
+    renderer.setClearColor(0x08090b, 1);
     renderer.setPixelRatio(Math.min(devicePixelRatio, 2));
     bindControls();
     buildGraph(data);
